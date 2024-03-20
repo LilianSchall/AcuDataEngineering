@@ -14,11 +14,11 @@ La piscine de C est une épreuve phare de l'EPITA. Suite à son rayonnement et s
 Les étudiants passant cet examen réalisent des exercices depuis leur ordinateur portable et transmettent leur réalisation à un service tier (nommé la moulinette). Une fois leurs résultats obtenus, les ordinateurs portables de ces étudiants émettent à nos services les données suivantes:
 - La date d'envoi (nommée le timestamp)
 - L'identifiant de l’étudiant
-- Sa position géographique (*id est* sa latitude et longitude)
+- Sa position géographique (sa latitude et longitude)
 - L'identifiant de l'exercice
 - Le résultat (en %) obtenu par l’étudiant sur l'exercice reference (nommée la métrique)
 
-En fonction du pourcentage de réussite par l’étudiant, une patrouille spéciale d'Assistants C/UNIX (surnommés les ACUs) est déployée sur le site de l’échec (*id est* la position de l’étudiant) pour "corriger" l’étudiant et le remettre sur le **droit** chemin de la réussite scolaire.
+En fonction du pourcentage de réussite par l’étudiant, une patrouille spéciale d'Assistants C/UNIX (surnommés les ACUs) est déployée sur le site de l’échec (la position de l’étudiant) pour "corriger" l’étudiant et le remettre sur le **droit** chemin de la réussite scolaire.
 
 ## Description de l'architecture des services
 
