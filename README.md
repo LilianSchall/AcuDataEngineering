@@ -2,7 +2,7 @@
 
 <div align="center">
     <a href="https://github.com/LilianSchall/DataEngineeringGp6">
-        <img src="images/architecture.png" alt="Architecture" width="500"
+        <img src="images/acu_unite_speciale.png" alt="Logo" width="500"
         height="250">
     </a>
 </div>
@@ -42,6 +42,14 @@ Il se découpe en trois grands services:
 	- Le taux de réussite moyen sur chaque exercice de l'ensemble des étudiants.
 
 Le système de stockage de donnée à long terme doit être résiliant aux partitions et doit rester consistante. La base de donnée n'est pas sujet à de nombreuses queries en lecture, mais l'est en écriture. Ainsi, une base de donnée CP est adaptée à notre contrainte business.
+
+<div align="center">
+    <a href="https://github.com/LilianSchall/DataEngineeringGp6/blob/main/images/architecture.png">
+        <img src="images/architecture.png" alt="Architecture" width="500"
+        height="250">
+    </a>
+</div>
+
 ## Contributeurs
 
 Ce projet est mené par le groupe 6 de la promotion 2025 SCIA à l'EPITA.
