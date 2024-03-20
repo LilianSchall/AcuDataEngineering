@@ -43,6 +43,8 @@ Il se découpe en trois grands services:
 
 Le système de stockage de donnée à long terme doit être résiliant aux partitions et doit rester consistante. La base de donnée n'est pas sujet à de nombreuses queries en lecture, mais l'est en écriture. Ainsi, une base de donnée CP est adaptée à notre contrainte business.
 
+## L'architecture en image
+
 <div align="center">
     <a href="https://github.com/LilianSchall/DataEngineeringGp6/blob/main/images/architecture.png">
         <img src="images/architecture.png" alt="Architecture" width="500"
