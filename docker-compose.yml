@@ -1,8 +1,11 @@
 name: "acu-infra"
 services:
   # stream kafka used for ingesting data from producers
-  kafka_in:
-    container_name: "kafka_in"
+  kafka-in:
+    container_name: "kafka-in"
+    image: "apache/kafka:3.7.0"
+  kafka-out:
+    container_name: "kafka-out"
     image: "apache/kafka:3.7.0"
 
   # distributed storage
