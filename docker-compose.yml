@@ -1,0 +1,26 @@
+name: "acu-infra"
+services:
+  # stream kafka used for ingesting data from producers
+  kafka_in:
+    container_name: "kafka_in"
+    image: "apache/kafka:3.7.0"
+
+  # distributed storage
+  hdfs-namenode:
+    container_name: "hdfs-namenode"
+    image: "apache/hadoop:3"
+    hostname: "hdfs-namenode"
+    command: ["hdfs", "namenode"]
+    env_file:
+      - ./hdfs-config/config
+    environment:
+      ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
+  hdfs-datanode:
+    container_name: "hdfs-datanode"
+    image: "apache/hadoop:3"
+    hostname: "hdfs-datanode"
+    command: ["hdfs", "datanode"]
+    env_file:
+      - ./hdfs-config/config
+
+
