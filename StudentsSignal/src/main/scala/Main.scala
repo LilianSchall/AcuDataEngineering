@@ -1,5 +1,7 @@
 object Main {
   def main(args: Array[String]): Unit = {
-    println("Hello world!")
+    val computer: Computer = new Computer()
+
+    computer.flood()
   }
 }
