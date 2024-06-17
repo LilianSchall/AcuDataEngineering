@@ -39,3 +39,13 @@ services:
       SPARK_MASTER_URL: "spark://spark-master:7077"
       SPARK_WORKER_MEMORY: "1G"
       SPARK_WORKER_CORES: "1"
+
+  # Analytics database
+  analystics-db:
+    container_name: "analytics-db"
+    hostname: "analytics-db"
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "analytics"
+      POSTGRES_PASSWORD: "kafka"
