@@ -1,0 +1,17 @@
+{
+    "name": "hdfs-sink-connector",
+    "config": {
+        "connector.class": "io.confluent.connect.hdfs.HdfsSinkConnector",
+        "tasks.max": 1,
+        "topics": "student_report",
+        "hdfs.url": "hdfs://hdfs-namenode:8020",
+        "flush.size": 1000,
+        "hadoop.conf.dir": "/opt/hadoop/etc/hadoop",
+        "format.class": "io.confluent.connect.hdfs.avro.AvroFormat",
+        "partitioner.class": "io.confluent.connect.storage.partitioner.DefaultPartitioner",
+        "rotate.interval.ms": 60000,
+        "hive.integration": false,
+        "schema.compatibility": "NONE",
+        "confluent.support.metrics.enable": true
+    }
+}
