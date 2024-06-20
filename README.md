@@ -38,7 +38,6 @@ Il se découpe en trois grands services:
 - Un deuxième service se charge de transférer la donnée dans la base de donnée à stockage longue durée.
 - Sur cette base de donnée, un service va régulièrement effectuer des analyses sur les scores obtenus pour en déduire les tendances suivantes:
 	- Les positions géographiques comportant le plus grand nombre d’échecs sur un exercice donné.
-	- Le taux de réussite des étudiants après *gratification* d'une intervention des ACUs
 	- Le taux de réussite moyen sur chaque exercice de l'ensemble des étudiants.
 
 Le système de stockage de donnée à long terme doit être résiliant aux partitions et doit rester consistante. La base de donnée n'est pas sujet à de nombreuses queries en lecture, mais l'est en écriture. Ainsi, une base de donnée CP est adaptée à notre contrainte business.
