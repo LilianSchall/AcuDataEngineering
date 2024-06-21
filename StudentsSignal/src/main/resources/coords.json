@@ -1,0 +1,664 @@
+{
+  "regions": [
+    {
+      "region": "auvergne-rhone-alpes",
+      "cities": [
+        {
+          "city": "Lyon",
+          "latitude": 45.76951,
+          "longitude": 4.83008
+        },
+        {
+          "city": "Saint-Etienne",
+          "latitude": 45.4401847,
+          "longitude": 4.3875304
+        },
+        {
+          "city": "Grenoble",
+          "latitude": 45.1865854,
+          "longitude": 5.7363929
+        },
+        {
+          "city": "Villeurbanne",
+          "latitude": 45.766454,
+          "longitude": 4.8796055
+        },
+        {
+          "city": "Clermont-Ferrand",
+          "latitude": 45.777221,
+          "longitude": 3.087025
+        },
+        {
+          "city": "Annecy",
+          "latitude": 45.899247,
+          "longitude": 6.129384
+        },
+        {
+          "city": "Chambéry",
+          "latitude": 45.564601,
+          "longitude": 5.917781
+        },
+        {
+          "city": "Bourg-en-Bresse",
+          "latitude": 46.205167,
+          "longitude": 5.225555
+        },
+        {
+          "city": "Roanne",
+          "latitude": 46.033333,
+          "longitude": 4.066667
+        },
+        {
+          "city": "Thonon-les-Bains",
+          "latitude": 46.361511,
+          "longitude": 6.475529
+        }
+      ]
+    },
+    {
+      "region": "bourgogne-franche-comte",
+      "cities": [
+        {
+          "city": "Dijon",
+          "latitude": 47.3215806,
+          "longitude": 5.0414701
+        },
+        {
+          "city": "Besançon",
+          "latitude": 47.237829,
+          "longitude": 6.024054
+        },
+        {
+          "city": "Belfort",
+          "latitude": 47.639674,
+          "longitude": 6.863849
+        },
+        {
+          "city": "Chalon-sur-Saone",
+          "latitude": 46.78067,
+          "longitude": 4.85259
+        },
+        {
+          "city": "Nevers",
+          "latitude": 46.989987,
+          "longitude": 3.157669
+        },
+        {
+          "city": "Auxerre",
+          "latitude": 47.797655,
+          "longitude": 3.566685
+        },
+        {
+          "city": "Mâcon",
+          "latitude": 46.306884,
+          "longitude": 4.828731
+        },
+        {
+          "city": "Montbéliard",
+          "latitude": 47.508235,
+          "longitude": 6.794378
+        },
+        {
+          "city": "Sens",
+          "latitude": 48.198612,
+          "longitude": 3.282499
+        },
+        {
+          "city": "Dole",
+          "latitude": 47.093612,
+          "longitude": 5.490278
+        }
+      ]
+    },
+    {
+      "region": "bretagne",
+      "cities": [
+        {
+          "city": "Rennes",
+          "latitude": 48.117266,
+          "longitude": -1.6777926
+        },
+        {
+          "city": "Brest",
+          "latitude": 48.390394,
+          "longitude": -4.486076
+        },
+        {
+          "city": "Quimper",
+          "latitude": 47.997542,
+          "longitude": -4.097899
+        },
+        {
+          "city": "Lorient",
+          "latitude": 47.748611,
+          "longitude": -3.370833
+        },
+        {
+          "city": "Vannes",
+          "latitude": 47.658236,
+          "longitude": -2.760847
+        },
+        {
+          "city": "Saint-Malo",
+          "latitude": 48.649337,
+          "longitude": -2.025674
+        },
+        {
+          "city": "Saint-Brieuc",
+          "latitude": 48.51418,
+          "longitude": -2.76583
+        },
+        {
+          "city": "Lanester",
+          "latitude": 47.76682,
+          "longitude": -3.33769
+        },
+        {
+          "city": "Fougeres",
+          "latitude": 48.353611,
+          "longitude": -1.199167
+        },
+        {
+          "city": "Concarneau",
+          "latitude": 47.875,
+          "longitude": -3.922222
+        }
+      ]
+    },
+    {
+      "region": "centre-val-de-loire",
+      "cities": [
+        {
+          "city": "Tours",
+          "latitude": 47.394144,
+          "longitude": 0.68484
+        },
+        {
+          "city": "Orléans",
+          "latitude": 47.902964,
+          "longitude": 1.909251
+        },
+        {
+          "city": "Bourges",
+          "latitude": 47.083333,
+          "longitude": 2.4
+        },
+        {
+          "city": "Blois",
+          "latitude": 47.588611,
+          "longitude": 1.330556
+        },
+        {
+          "city": "Châteauroux",
+          "latitude": 46.809167,
+          "longitude": 1.689722
+        },
+        {
+          "city": "Chartres",
+          "latitude": 48.443889,
+          "longitude": 1.489444
+        },
+        {
+          "city": "Dreux",
+          "latitude": 48.733333,
+          "longitude": 1.366667
+        },
+        {
+          "city": "Vierzon",
+          "latitude": 47.222222,
+          "longitude": 2.066667
+        },
+        {
+          "city": "Joué-lès-Tours",
+          "latitude": 47.349444,
+          "longitude": 0.675
+        },
+        {
+          "city": "Saint-Cyr-sur-Loire",
+          "latitude": 47.41647,
+          "longitude": 0.65685
+        }
+      ]
+    },
+    {
+      "region": "grand-est",
+      "cities": [
+        {
+          "city": "Strasbourg",
+          "latitude": 48.5734053,
+          "longitude": 7.7521113
+        },
+        {
+          "city": "Reims",
+          "latitude": 49.258329,
+          "longitude": 4.031696
+        },
+        {
+          "city": "Metz",
+          "latitude": 49.119308,
+          "longitude": 6.175715
+        },
+        {
+          "city": "Mulhouse",
+          "latitude": 47.750839,
+          "longitude": 7.335888
+        },
+        {
+          "city": "Nancy",
+          "latitude": 48.692054,
+          "longitude": 6.184417
+        },
+        {
+          "city": "Colmar",
+          "latitude": 48.077751,
+          "longitude": 7.357964
+        },
+        {
+          "city": "Troyes",
+          "latitude": 48.2972,
+          "longitude": 4.0747
+        },
+        {
+          "city": "Charleville-Mézières",
+          "latitude": 49.7736,
+          "longitude": 4.7206
+        },
+        {
+          "city": "Châlons-en-Champagne",
+          "latitude": 48.9565,
+          "longitude": 4.3636
+        },
+        {
+          "city": "Épinal",
+          "latitude": 48.1736,
+          "longitude": 6.4513
+        }
+      ]
+    },
+    {
+      "region": "hauts-de-france",
+      "cities": [
+        {
+          "city": "Lille",
+          "latitude": 50.62925,
+          "longitude": 3.057256
+        },
+        {
+          "city": "Amiens",
+          "latitude": 49.894067,
+          "longitude": 2.295753
+        },
+        {
+          "city": "Roubaix",
+          "latitude": 50.691589,
+          "longitude": 3.17422
+        },
+        {
+          "city": "Tourcoing",
+          "latitude": 50.7236,
+          "longitude": 3.1617
+        },
+        {
+          "city": "Dunkerque",
+          "latitude": 51.0344,
+          "longitude": 2.3765
+        },
+        {
+          "city": "Calais",
+          "latitude": 50.9513,
+          "longitude": 1.8587
+        },
+        {
+          "city": "Villeneuve-d'Ascq",
+          "latitude": 50.6231,
+          "longitude": 3.1429
+        },
+        {
+          "city": "Saint-Quentin",
+          "latitude": 49.8487,
+          "longitude": 3.2876
+        },
+        {
+          "city": "Beauvais",
+          "latitude": 49.4316,
+          "longitude": 2.0887
+        },
+        {
+          "city": "Valenciennes",
+          "latitude": 50.3586,
+          "longitude": 3.5236
+        }
+      ]
+    },
+    {
+      "region": "ile-de-france",
+      "cities": [
+        {
+          "city": "Paris",
+          "latitude": 48.8566,
+          "longitude": 2.3522
+        },
+        {
+          "city": "Boulogne-Billancourt",
+          "latitude": 48.839695,
+          "longitude": 2.239912
+        },
+        {
+          "city": "Argenteuil",
+          "latitude": 48.9475,
+          "longitude": 2.2469
+        },
+        {
+          "city": "Montreuil",
+          "latitude": 48.863461,
+          "longitude": 2.448451
+        },
+        {
+          "city": "Saint-Denis",
+          "latitude": 48.936181,
+          "longitude": 2.357443
+        },
+        {
+          "city": "Versailles",
+          "latitude": 48.801408,
+          "longitude": 2.130122
+        },
+        {
+          "city": "Courbevoie",
+          "latitude": 48.897222,
+          "longitude": 2.2675
+        },
+        {
+          "city": "Nanterre",
+          "latitude": 48.8917,
+          "longitude": 2.2064
+        },
+        {
+          "city": "Vitry-sur-Seine",
+          "latitude": 48.7883,
+          "longitude": 2.4039
+        },
+        {
+          "city": "Créteil",
+          "latitude": 48.790367,
+          "longitude": 2.455572
+        }
+      ]
+    },
+    {
+      "region": "normandie",
+      "cities": [
+        {
+          "city": "Rouen",
+          "latitude": 49.443231,
+          "longitude": 1.099971
+        },
+        {
+          "city": "Caen",
+          "latitude": 49.182863,
+          "longitude": -0.370679
+        },
+        {
+          "city": "Le Havre",
+          "latitude": 49.493897,
+          "longitude": 0.107973
+        },
+        {
+          "city": "Cherbourg-en-Cotentin",
+          "latitude": 49.633333,
+          "longitude": -1.616667
+        },
+        {
+          "city": "Évreux",
+          "latitude": 49.024438,
+          "longitude": 1.150986
+        },
+        {
+          "city": "Dieppe",
+          "latitude": 49.9225,
+          "longitude": 1.0775
+        },
+        {
+          "city": "Saint-Étienne-du-Rouvray",
+          "latitude": 49.37545,
+          "longitude": 1.10261
+        },
+        {
+          "city": "Sotteville-les-Rouen",
+          "latitude": 49.4081,
+          "longitude": 1.0861
+        },
+        {
+          "city": "Alençon",
+          "latitude": 48.433333,
+          "longitude": 0.083333
+        },
+        {
+          "city": "Vernon",
+          "latitude": 49.0925,
+          "longitude": 1.483333
+        }
+      ]
+    },
+    {
+      "region": "nouvelle-aquitaine",
+      "cities": [
+        {
+          "city": "Bordeaux",
+          "latitude": 44.837789,
+          "longitude": -0.57918
+        },
+        {
+          "city": "Limoges",
+          "latitude": 45.833619,
+          "longitude": 1.261105
+        },
+        {
+          "city": "Pau",
+          "latitude": 43.2951,
+          "longitude": -0.3708
+        },
+        {
+          "city": "La Rochelle",
+          "latitude": 46.159112,
+          "longitude": -1.152043
+        },
+        {
+          "city": "Bayonne",
+          "latitude": 43.493337,
+          "longitude": -1.47599
+        },
+        {
+          "city": "Angouleme",
+          "latitude": 45.64861,
+          "longitude": 0.15499
+        },
+        {
+          "city": "Périgueux",
+          "latitude": 45.183333,
+          "longitude": 0.716667
+        },
+        {
+          "city": "Niort",
+          "latitude": 46.3231,
+          "longitude": -0.4645
+        },
+        {
+          "city": "Brive-la-Gaillarde",
+          "latitude": 45.158611,
+          "longitude": 1.533056
+        },
+        {
+          "city": "Poitiers",
+          "latitude": 46.580224,
+          "longitude": 0.340375
+        }
+      ]
+    },
+    {
+      "region": "occitanie",
+      "cities": [
+        {
+          "city": "Toulouse",
+          "latitude": 43.604652,
+          "longitude": 1.444209
+        },
+        {
+          "city": "Montpellier",
+          "latitude": 43.610769,
+          "longitude": 3.876716
+        },
+        {
+          "city": "Nîmes",
+          "latitude": 43.836699,
+          "longitude": 4.360054
+        },
+        {
+          "city": "Perpignan",
+          "latitude": 42.697708,
+          "longitude": 2.895404
+        },
+        {
+          "city": "Béziers",
+          "latitude": 43.344233,
+          "longitude": 3.215795
+        },
+        {
+          "city": "Albi",
+          "latitude": 43.9289,
+          "longitude": 2.1449
+        },
+        {
+          "city": "Carcassonne",
+          "latitude": 43.2134,
+          "longitude": 2.3518
+        },
+        {
+          "city": "Narbonne",
+          "latitude": 43.1833,
+          "longitude": 3
+        },
+        {
+          "city": "Sète",
+          "latitude": 43.4017,
+          "longitude": 3.6967
+        },
+        {
+          "city": "Castres",
+          "latitude": 43.6053,
+          "longitude": 2.2416
+        }
+      ]
+    },
+    {
+      "region": "pays-de-la-loire",
+      "cities": [
+        {
+          "city": "Nantes",
+          "latitude": 47.218371,
+          "longitude": -1.553621
+        },
+        {
+          "city": "Angers",
+          "latitude": 47.478419,
+          "longitude": -0.563166
+        },
+        {
+          "city": "Le Mans",
+          "latitude": 48.00611,
+          "longitude": 0.199556
+        },
+        {
+          "city": "Saint-Nazaire",
+          "latitude": 47.283333,
+          "longitude": -2.216667
+        },
+        {
+          "city": "Cholet",
+          "latitude": 47.0599,
+          "longitude": -0.8773
+        },
+        {
+          "city": "Laval",
+          "latitude": 48.066667,
+          "longitude": -0.766667
+        },
+        {
+          "city": "La Roche-sur-Yon",
+          "latitude": 46.6707,
+          "longitude": -1.426
+        },
+        {
+          "city": "Saint-Herblain",
+          "latitude": 47.2167,
+          "longitude": -1.65
+        },
+        {
+          "city": "Rezé",
+          "latitude": 47.1833,
+          "longitude": -1.55
+        },
+        {
+          "city": "Saumur",
+          "latitude": 47.2606,
+          "longitude": -0.0686
+        }
+      ]
+    },
+    {
+      "region": "provence-alpes-cote-d-azur",
+      "cities": [
+        {
+          "city": "Marseille",
+          "latitude": 43.296482,
+          "longitude": 5.36978
+        },
+        {
+          "city": "Nice",
+          "latitude": 43.70313,
+          "longitude": 7.26608
+        },
+        {
+          "city": "Toulon",
+          "latitude": 43.124228,
+          "longitude": 5.928
+        },
+        {
+          "city": "Aix-en-Provence",
+          "latitude": 43.529742,
+          "longitude": 5.447427
+        },
+        {
+          "city": "Avignon",
+          "latitude": 43.949249,
+          "longitude": 4.805901
+        },
+        {
+          "city": "Antibes",
+          "latitude": 43.5626,
+          "longitude": 7.1278
+        },
+        {
+          "city": "Cannes",
+          "latitude": 43.55135,
+          "longitude": 7.01275
+        },
+        {
+          "city": "Grasse",
+          "latitude": 43.6667,
+          "longitude": 6.9167
+        },
+        {
+          "city": "La Seyne-sur-Mer",
+          "latitude": 43.1,
+          "longitude": 5.8833
+        },
+        {
+          "city": "Hyères",
+          "latitude": 43.1167,
+          "longitude": 6.1333
+        }
+      ]
+    }
+  ]
+}
