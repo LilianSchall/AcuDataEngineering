@@ -2,6 +2,7 @@
   "regions": [
     {
       "region": "auvergne-rhone-alpes",
+      "region_id": 1,
       "cities": [
         {
           "city": "Lyon",
@@ -57,6 +58,7 @@
     },
     {
       "region": "bourgogne-franche-comte",
+      "region_id": 2,
       "cities": [
         {
           "city": "Dijon",
@@ -112,6 +114,7 @@
     },
     {
       "region": "bretagne",
+      "region_id": 3,
       "cities": [
         {
           "city": "Rennes",
@@ -167,6 +170,7 @@
     },
     {
       "region": "centre-val-de-loire",
+      "region_id": 4,
       "cities": [
         {
           "city": "Tours",
@@ -222,6 +226,7 @@
     },
     {
       "region": "grand-est",
+      "region_id": 5,
       "cities": [
         {
           "city": "Strasbourg",
@@ -277,6 +282,7 @@
     },
     {
       "region": "hauts-de-france",
+      "region_id": 6,
       "cities": [
         {
           "city": "Lille",
@@ -332,6 +338,7 @@
     },
     {
       "region": "ile-de-france",
+      "region_id": 7,
       "cities": [
         {
           "city": "Paris",
@@ -387,6 +394,7 @@
     },
     {
       "region": "normandie",
+      "region_id": 8,
       "cities": [
         {
           "city": "Rouen",
@@ -442,6 +450,7 @@
     },
     {
       "region": "nouvelle-aquitaine",
+      "region_id": 9,
       "cities": [
         {
           "city": "Bordeaux",
@@ -497,6 +506,7 @@
     },
     {
       "region": "occitanie",
+      "region_id": 10,
       "cities": [
         {
           "city": "Toulouse",
@@ -552,6 +562,7 @@
     },
     {
       "region": "pays-de-la-loire",
+      "region_id": 11,
       "cities": [
         {
           "city": "Nantes",
@@ -607,6 +618,7 @@
     },
     {
       "region": "provence-alpes-cote-d-azur",
+      "region_id": 12,
       "cities": [
         {
           "city": "Marseille",

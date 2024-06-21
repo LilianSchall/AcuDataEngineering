@@ -1,15 +1,21 @@
 import scala.io.Source
 import scala.util.Random
-import ujson._
+import upickle.default._
+import upickle.default.{ReadWriter => RW, macroRW}
 
-object StudentSignal {
-  case class StudentSignal(
-                            login: String,
-                            latitude: Double,
-                            longitude: Double,
-                            exercise: Int,
-                            score: Int,
-                          )
+case class StudentSignal(
+                          login: String,
+                          latitude: Double,
+                          longitude: Double,
+                          exercise: Int,
+                          score: Int,
+                        )
+object StudentSignal{
+  implicit val rw: RW[StudentSignal] = macroRW
+}
+
+object Tools
+{
 
   def readLinesFromFile(fileName: String): List[String] = {
     val source = Source.fromFile(fileName)
@@ -57,14 +63,14 @@ object StudentSignal {
   }
 
   def createExercise(): Int = {
-    Random.nextInt(25)
+    Random.nextInt(120)
   }
 
   def createScore(exercise: Int): Int = {
     Random.nextInt(100)
   }
 
-  def createStudentSignal(): StudentSignal = {
+   def createStudentSignal(): StudentSignal = {
     val login = createLogin()
     val (latitude, longitude) = createCoords()
 

@@ -6,5 +6,6 @@ lazy val root = (project in file("."))
   .settings(
       name := "StudentsSignal",
       libraryDependencies += "org.apache.kafka" % "kafka-clients" % "3.7.0",
-        libraryDependencies += "com.lihaoyi" %% "ujson" % "3.1.1"
+      libraryDependencies += "com.lihaoyi" %% "upickle" % "2.0.0",
+      libraryDependencies +=   "com.lihaoyi" %% "ujson" % "1.4.0"
 )
