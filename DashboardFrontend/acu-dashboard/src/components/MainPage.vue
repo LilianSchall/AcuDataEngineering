@@ -5,57 +5,81 @@
         <v-card>
           <h2 class="mt-2 ml-3">Regions</h2>
           <v-list density="comfortable">
-            <v-list-item v-for="region in region_ranks"
-            :key="region.id"
-            @click="clickedRegion(region.id)"
-            >
-                <v-list-item-title :class="[`rank-${region.rank}`]">#{{region.rank}} - {{ region.id }}</v-list-item-title>
+            <v-list-item v-for="region in region_ranks" :key="region.id" @click="clickedRegion(region.id)">
+              <v-list-item-title :class="[`rank-${region.rank}`]">#{{ region.rank }} - {{ region.id }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-card>
       </v-col>
-      <v-col cols="8" class="text-center">
-        <div>
-          <svg xmlns:svg="http://www.w3.org/2000/svg" id="svg2" height="584.5448" width="596.41547"
-            class="france-map mt-5">
-            <path v-for="region of regions" :key="region.id" :id="region.id" :d="region.path" @click="clickedRegion(region.id)" :class="[
-            'region',
-            `rank-${region.rank}`,
-            { 'hovered-region': region.id === hoveredRegion },
-          ]" 
-          @mouseover="onMouseOver($event, region.id)" @mouseout="onMouseOut()" />
-          </svg>
-        </div>
-        <v-dialog v-model="dialog" max-width="90vw" max-height="80vh">
-        <v-card>
-          <v-card-title class="d-flex flex-rows">
-            <h2 class="mt-2 ml-2">
-              {{ selectedRegion }}
-            </h2>
-            <v-spacer></v-spacer>
+      <v-col cols="8" class="text-center pb-0">
+        <div class="d-flex justify-space-between">
+          <div v-if="hoveredRegion" class="tooltip">
+            {{ "Region : " + hoveredRegion }}
+          </div>
+          <div v-else class="tooltip" @click="clickedRegion(0)">
+            Toute la France
+          </div>
+          <div class="tooltip" @click="viewExercise(selectedExercise)">
+            {{ selectedExercise }}
+          </div>
+          <v-dialog v-model="dialogExercise" max-width="90vw" max-height="80vh">
+          <v-card>
+            <v-card-title class="d-flex flex-rows">
+              <h2 class="mt-2 ml-2">
+                {{ selectedExercise }}
+              </h2>
+              <v-spacer></v-spacer>
               <v-card-actions>
-                <v-btn text @click="dialog = false" icon="mdi-close">
+                <v-btn text @click="dialogExercise = false" icon="mdi-close">
                 </v-btn>
               </v-card-actions>
-          </v-card-title>
-          <v-card-text>
-            <v-data-table-virtual 
-            fixed-header
-            height="60vh"
-            density="comfortable"
-            :items="scores_info"
-            ></v-data-table-virtual>
-         </v-card-text>
-        </v-card>
-    </v-dialog>
+            </v-card-title>
+            <v-card-text>
+              <v-data-table-virtual fixed-header height="60vh" density="comfortable"
+                :items="scores_info"></v-data-table-virtual>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        </div>
+        <div class="mt-5">
+          <svg xmlns:svg="http://www.w3.org/2000/svg" id="svg2" height="540" width="550"
+            class="france-map">
+            <path v-for="region of regions" :key="region.id" :id="region.id" :d="region.path"
+              @click="clickedRegion(region.id)" :class="[
+              'region',
+              `rank-${region.rank}`,
+              { 'hovered-region': region.id === hoveredRegion },
+            ]" @mouseover="onMouseOver($event, region.id)" @mouseout="onMouseOut()" />
+          </svg>
+        </div>
+        <v-dialog v-model="dialogRegion" max-width="90vw" max-height="80vh">
+          <v-card>
+            <v-card-title class="d-flex flex-rows">
+              <h2 class="mt-2 ml-2">
+                {{ selectedRegion == 0 ? "Toute la France" : selectedRegion }}
+              </h2>
+              <v-spacer></v-spacer>
+              <v-card-actions>
+                <v-btn text @click="dialogRegion = false" icon="mdi-close">
+                </v-btn>
+              </v-card-actions>
+            </v-card-title>
+            <v-card-text>
+              <v-data-table-virtual fixed-header height="60vh" density="comfortable"
+                :items="scores_info"></v-data-table-virtual>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
       </v-col>
       <v-col cols="2">
         <v-card>
           <h2 class="mt-2 ml-3">Exercices</h2>
           <v-list height="80vh" density="comfortable" slim selectable :items="exercises_info" item-title="name"
-            item-value="id">
+            item-value="id"
+            @update:selected="selectExercise($event)"
+            >
             <template v-slot:item="{ props }">
-              <v-list-item v-bind="props" @click="selectExercise(props.value)">
+              <v-list-item v-bind="props">
                 <template v-slot:prepend="{ isActive }">
                   <v-list-item-action start>
                     <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
@@ -98,8 +122,10 @@ regions.forEach((region) => {
 });
 
 const hoveredRegion = ref(null);
-const dialog = ref(false);
+const dialogRegion = ref(false);
+const dialogExercise = ref(false);
 const selectedRegion = ref({});
+const selectedExercise = ref("Tous les exercices");
 
 const onMouseOver = (event, regionId) => {
   hoveredRegion.value = regionId;
@@ -114,12 +140,22 @@ const onMouseOut = () => {
 
 const selectExercise = (id) => {
   console.log(id);
+  if (id.length === 0) {
+    selectedExercise.value = "Tous les exercices";
+  } else {
+    selectedExercise.value = "Exercice : " + exercises_info[id - 1]["name"];
+  }
+};
+
+const viewExercise = (exercise) => {
+  console.log(exercise);
+  dialogExercise.value = true;
 };
 
 const clickedRegion = (regionId) => {
   console.log(regionId);
   selectedRegion.value = regionId;
-  dialog.value = true;
+  dialogRegion.value = true;
 };
 </script>
 
@@ -140,6 +176,19 @@ const clickedRegion = (regionId) => {
 
 .france-map path {
   transition: transform 0.3s ease;
+}
+
+.tooltip {
+  background-color: rgb(var(--v-theme-light_gray_background));
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip:hover {
+  cursor: pointer;
+  background-color: rgb(var(--v-theme-dark_gray_background));
 }
 
 .rank-1 {
