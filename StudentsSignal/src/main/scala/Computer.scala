@@ -1,6 +1,5 @@
 import java.util.Properties
-import org.apache.kafka.clients.producer.KafkaProducer
-import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 import org.apache.kafka.common.serialization.StringSerializer
 import upickle.default._
 import Tools._
@@ -10,7 +9,9 @@ import scala.annotation.tailrec
 
 class Computer {
   private val props: Properties = new Properties()
-  props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
+  props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+    sys.env.getOrElse("KAFKA_IN_HOST", "localhost") + ":" +
+      sys.env.getOrElse("KAFKA_IN_PORT", "9092"))
   props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer])
   props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, classOf[StringSerializer])
 
@@ -27,11 +28,13 @@ class Computer {
   @tailrec
   final def flood(): Unit = {
 
-    val test = write(createStudentSignal())
+    val value = write(createStudentSignal())
 
-    Console.println(test)
+    Console.println(value)
 
     // TODO : KAFKA
+    val record = new ProducerRecord[String, String]("student_report", "report", value)
+    producer.send(record).get()
 
     flood()
   }
