@@ -33,6 +33,8 @@ services:
     container_name: "kafka-out"
     hostname: "kafka-in"
     image: "apache/kafka:3.7.0"
+    ports:
+      - 9093:9092
     healthcheck:
       test: nc -z localhost 9092 || exit -1
       start_period: 15s
@@ -106,32 +108,33 @@ services:
 
   # the kafka connector that sinks the data of 
   # kafka-in into kafka-out by applying a filter.
-  kafka-alert-connector:
-    depends_on:
-      kafka-in:
-        condition: service_healthy
-      kafka-out:
-        condition: service_healthy
-    container_name: "kafka-alert-connector"
-    hostname: "kafka-alert-connector"
-    image: "kafka-connect-alert:latest"
-    build:
-      context: "./kafka-connect-alert"
-    environment:
-      CONNECT_BOOTSTRAP_SERVERS: "PLAINTEXT://kafka-in:19092"
-      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-alert-connector"
-      CONNECT_REST_PORT: "8083"
-      CONNECT_GROUP_ID: "kafka-alert-cluster"
-      CONNECT_CONFIG_STORAGE_TOPIC: "alert-connect-configs"
-      CONNECT_OFFSET_STORAGE_TOPIC: "alert-connect-offsets"
-      CONNECT_STATUS_STORAGE_TOPIC: "alert-connect-status"
-      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
-      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
-      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
-      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
-      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      # CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
-      CONNECT_TOPIC_CREATION_ENABLE: "true"
+  # **unused** because Adrien told us it hasn't any sense 
+  # kafka-alert-connector:
+  #   depends_on:
+  #     kafka-in:
+  #       condition: service_healthy
+  #     kafka-out:
+  #       condition: service_healthy
+  #   container_name: "kafka-alert-connector"
+  #   hostname: "kafka-alert-connector"
+  #   image: "kafka-connect-alert:latest"
+  #   build:
+  #     context: "./kafka-connect-alert"
+  #   environment:
+  #     CONNECT_BOOTSTRAP_SERVERS: "PLAINTEXT://kafka-in:19092"
+  #     CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-alert-connector"
+  #     CONNECT_REST_PORT: "8083"
+  #     CONNECT_GROUP_ID: "kafka-alert-cluster"
+  #     CONNECT_CONFIG_STORAGE_TOPIC: "alert-connect-configs"
+  #     CONNECT_OFFSET_STORAGE_TOPIC: "alert-connect-offsets"
+  #     CONNECT_STATUS_STORAGE_TOPIC: "alert-connect-status"
+  #     CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+  #     CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+  #     CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+  #     CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
+  #     CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+  #     # CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+  #     CONNECT_TOPIC_CREATION_ENABLE: "true"
 
   # Cluster spark
   spark-master:
