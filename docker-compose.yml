@@ -157,11 +157,18 @@ services:
       SPARK_WORKER_CORES: "1"
 
   # Analytics database
-  analystics-db:
+  analytics-db:
     container_name: "analytics-db"
     hostname: "analytics-db"
-    image: postgres
+    image: acu-database:latest
     restart: unless-stopped
+    build:
+      context: ./database
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_USER: "analytics"
-      POSTGRES_PASSWORD: "kafka"
+      POSTGRES_DB: acu_infra
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      DASHBOARD_SERVICE_PASSWORD: dashboard123
+      ANALYTICS_SERVICE_PASSWORD: analytics123
