@@ -15,10 +15,23 @@ def insert_exercises(db):
                 )
             db.commit()
 
+def insert_regions(db):
+    with open("/app/resources/coords.json") as f:
+        data = json.load(f)
+        with db.cursor() as cur:
+            for region in data["regions"]:
+                cur.execute(
+                    "INSERT INTO regions (id, name)" "VALUES (%s, %s)",
+                    (region["region_id"], region["region"]),
+                )
+            db.commit()
+
 def main():
     db = get_db()
     insert_exercises(db)
     print("Inserted exercises")
+    insert_regions(db)
+    print("Inserted regions")
 
 
 if __name__ == "__main__":
