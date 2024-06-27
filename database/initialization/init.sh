@@ -58,3 +58,6 @@ create_user_if_not_exist "dashboard_service" "$DASHBOARD_SERVICE_PASSWORD" "acu_
 
 grant_user_access "analytics_service" "acu_infra";
 grant_user_access "dashboard_service" "acu_infra";
+
+# import json in database 
+python /app/main.py &
