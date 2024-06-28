@@ -1,14 +1,15 @@
 <template>
   <v-footer height="30" app>
+    <span class="d-flex justify-center font-weight-medium">ACU Dashboard</span>
     <v-spacer></v-spacer>
-    <span class="d-flex justify-center">Powered by
+    <span class="d-flex justify-center font-weight-medium">Powered by
       <v-dialog v-model="group6" max-width="50vw">
         <template v-slot:activator="{ props }">
           <v-btn density="compact" variant="text" v-bind="props">Groupe 6</v-btn>
         </template>
         <v-card>
           <v-card-text>
-            Projet fait par le Groupe 6 de la majeure SCIA. <br><br>
+            Projet réalisé par le Groupe 6 de la majeure SCIA. <br><br>
             Lilian Schall <br>
             Julien Schaffauser <br>
             Guillaume Lalire <br>

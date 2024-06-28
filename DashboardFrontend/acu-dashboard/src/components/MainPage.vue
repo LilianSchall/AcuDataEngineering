@@ -1,5 +1,8 @@
 <template>
   <v-container fluid class="fill-height mx-0 w-100">
+    <v-overlay v-model="loading" persistent class="d-flex align-center justify-center">
+      <v-progress-circular indeterminate color="white"></v-progress-circular>
+    </v-overlay>
     <v-row>
       <v-col cols="2">
         <v-card>
@@ -100,6 +103,16 @@ import { ref } from "vue";
 import paths from "@/utils/france-map.json";
 import exercises from "@/utils/exercises.json";
 import scores from "@/utils/scores_example.json";
+
+import { useAppStore } from "@/stores/app";
+
+const appStore = useAppStore();
+
+const hello = appStore.hello;
+
+console.log(hello);
+
+const loading = ref(false);
 
 const region_ranks = ref([]);
 
