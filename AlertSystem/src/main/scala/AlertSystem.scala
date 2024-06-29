@@ -1,11 +1,13 @@
-import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig}
+import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer, ConsumerRecords}
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
 
 import upickle.default._
+import upickle.default.{ReadWriter => RW, macroRW}
 
 import java.util.Properties
 import scala.annotation.tailrec
+import scala.collection.JavaConverters._
 
 case class StudentSignal(
                           login: String,
@@ -39,35 +41,21 @@ class AlertSystem {
 
   private val producer: KafkaProducer[String, String] = new KafkaProducer[String, String](producerProps)
 
+  consumer.subscribe(List("student_report").asJava)
 
   @tailrec
   final def run(): Unit = {
-    # consumer.get pour recup chaine de caractères
-    # serialiser avec upickle dans case class
-    # regarder score et evaluer selon seuil fixe
-    # seuil en variable d'environnement
-    # si score <= seuil, producer.send avec la string
-    # si score > seuil, rien à faire et appel recursif passe au message suivant
-    # push une fois que ça marche
-    # ensuite, faire un seuil en fonction de la difficulté
-    val records = consumer.poll(java.time.Duration.ofMillis(100)).asScala
-
-    for (record <- records) {
-      try {
-        val jsonString = record.value()
-        
-        val studentSignal = read[StudentSignal](jsonString)
-        
+    val records: ConsumerRecords[String, String] = consumer.poll(java.time.Duration.ofMillis(100))
+    records.asScala.foreach { record =>
+        val value = record.value()
+        val studentSignal = read[StudentSignal](value)
+        // TODO: ajouter fonction qui check seuil de difficulté exercice et lance alerte en conséquence
         val floor = sys.env.getOrElse("SCORE_FLOOR", "20").toInt
         if (studentSignal.score <= floor) {
-
           val alertString = write(studentSignal)
-          val producerRecord = new ProducerRecord[String, String](alert, AlertString)
-          producer.send(producerRecord)
+          val producerRecord : ProducerRecord[String, String] = new ProducerRecord[String, String]("alert", "report", alertString)
+          producer.send(producerRecord).get()
         }
-      } catch {
-        case e: Exception => e.printStackTrace()
-      }
     }
     run()
   }
