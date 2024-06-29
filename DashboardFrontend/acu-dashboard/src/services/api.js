@@ -5,11 +5,44 @@ const api = axios.create({
 });
 
 const getRegionIds = async () => {
+
+    /*
+    {
+        "regions": [
+            {
+                "id": 1,
+                "name": "Grand Est"
+            },
+            {
+                "id": 2,
+                "name": "Ile-de-France"
+            },
+            (...)
+        ]
+    }
+    */
+
     const response = await api.get('/regions_ids');
-    return response.data;
+    return response.data['regions'];
 }
 
 const getRegionAverageScore = async (regionId) => {
+    /*
+    {
+        "average_score": [
+            {
+                "id_exercise": 1,
+                "score": 50
+            },
+            {
+                "id_exercise": 2,
+                "score": 60
+            },
+            (...)
+        ]
+    }
+    */
+
     if (!regionId) {
         regionId = 0;
     }
@@ -18,6 +51,21 @@ const getRegionAverageScore = async (regionId) => {
 }
 
 const getRegionNbAlerts = async (regionId) => {
+    /*
+    {
+        "nb_alert": [
+            {
+                "id_exercise": 1,
+                "nb_alert": 50
+            },
+            {
+                "id_exercise": 2,
+                "nb_alert": 60
+            },
+            (...)
+        ]
+    }
+    */
     if (!regionId) {
         regionId = 0;
     }
@@ -26,11 +74,45 @@ const getRegionNbAlerts = async (regionId) => {
 }
 
 const getExerciseIds = async () => {
+    /*
+    {
+        "exercises": [
+        {
+            "id": 1
+            "name": "80cols",
+            "difficulty": "easy",
+        },
+        {
+            "id": 2
+            "name": "80cols_grep",
+            "difficulty": "easy",
+        },
+        (...)
+        ]
+    }
+    
+    */
+
     const response = await api.get('/exercises_ids');
-    return response.data;
+    return response.data['exercises'];
 }
 
 const getExerciseAverageScore = async (exerciseId) => {
+    /*
+    {
+        "average_score": [
+            {
+                "id_region": 1,
+                "score": 50
+            },
+            { 
+                "id_region": 2,
+                "score": 60
+            }
+        ]
+    }
+    */
+
     if (!exerciseId) {
         exerciseId = 0;
     }
@@ -39,6 +121,20 @@ const getExerciseAverageScore = async (exerciseId) => {
 }
 
 const getExerciseNbAlerts = async (exerciseId) => {
+        /*
+    {
+        "nb_alert": [
+            {
+                "id_region": 1,
+                "nb_alert": 50
+            },
+            { 
+                "id_region": 2,
+                "nb_alert": 60
+            }
+        ]
+    }
+    */
     if (!exerciseId) {
         exerciseId = 0;
     }
