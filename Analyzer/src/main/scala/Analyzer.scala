@@ -3,6 +3,7 @@ import org.apache.hadoop.fs.{FileSystem, FileStatus, Path}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.util.Properties
+import java.net.URI
 
 class Analyzer {
   // Setup spark session
@@ -12,9 +13,9 @@ class Analyzer {
 
 
   // Setup retrieval of files from hdfs
-  private val hdfsFilePattern = "hdfs://hdfs-datanode/topics/student_report/partition=0/*.json"
+  private val hdfsFilePattern = "/topics/student_report/partition=0/*.json"
   private val hadoopConfig = new Configuration()
-  private val hdfs = FileSystem.get(hadoopConfig)
+  private val hdfs = FileSystem.get(new URI("hdfs://localhost:8020"), hadoopConfig)
   private val filePatternPath = new Path(hdfsFilePattern)
 
   private val fileStatuses: Array[FileStatus] = hdfs.globStatus(filePatternPath)
