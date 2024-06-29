@@ -26,16 +26,15 @@ class Computer {
    * - The timestamp (in s) should be incremented by the number of times we submitted a data into the kafka stream.
    */
   @tailrec
-  final def flood(): Unit = {
+  final def flood(timestamp : Long = System.currentTimeMillis() / 1000): Unit = {
 
-    val value = write(createStudentSignal())
+    val value = write(createStudentSignal(timestamp))
 
     Console.println(value)
 
-    // TODO : KAFKA
     val record = new ProducerRecord[String, String]("student_report", "report", value)
     producer.send(record).get()
 
-    flood()
+    flood(timestamp + 1)
   }
 }
