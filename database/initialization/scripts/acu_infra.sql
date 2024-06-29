@@ -12,6 +12,14 @@ CREATE TABLE IF NOT EXISTS exercises (
     difficulty VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS cities (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    latitude DECIMAL NOT NULL,
+    longitude DECIMAL NOT NULL,
+    region_id INTEGER NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS analytics (
     id SERIAL PRIMARY KEY,
     region_id INTEGER NOT NULL,
