@@ -6,5 +6,6 @@ lazy val root = (project in file("."))
   .settings(
     name := "AlertSystem",
     libraryDependencies += "org.apache.kafka" % "kafka-clients" % "3.7.0",
-    libraryDependencies += "com.lihaoyi" %% "upickle" % "2.0.0"
+    libraryDependencies += "com.lihaoyi" %% "upickle" % "2.0.0",
+    libraryDependencies += "org.postgresql" % "postgresql" % "42.5.4"
   )

@@ -43,6 +43,9 @@ class AlertSystem {
 
   consumer.subscribe(List("student_report").asJava)
 
+  // On recupère les données de la database pour le seuil
+  private val exerciseDifficulties: Map[Int, Int] = DatabaseUtils.getExerciseDifficulties()
+
   @tailrec
   final def run(): Unit = {
     val records: ConsumerRecords[String, String] = consumer.poll(java.time.Duration.ofMillis(100))
