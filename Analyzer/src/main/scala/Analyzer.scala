@@ -43,22 +43,17 @@ class Analyzer {
   private val citiesDF: DataFrame = spark.read
     .jdbc(jdbcUrl, "cities", dbProperties)
 
-  // Example for writing a dataframe in the db
-  /* studentDF.write
-      .mode("overwrite")
-      .jdbc(jdbcUrl, "analytics", dbProperties)
-   */
-
   /*
    * Process the studentDF dataframe and get analytics out of it.
    * Commit the different dataframes you may become into the postgresql database.
    */
   def run(): Unit = {
-
+    // Add "region_id" to the dataframe based on latitude and longitude of cities
     val studentWithRegionDF = studentDF
       .join(citiesDF, Seq("latitude", "longitude"), "left")
       .select("login", "region_id", "exercise", "score")
 
+    // Calculate average score and number of alerts for each region and exercise
     val averageScoreDF = studentWithRegionDF
       .groupBy("region_id", "exercise")
       .agg(
@@ -66,9 +61,11 @@ class Analyzer {
         count(when(col("score") <= 20, true)).alias("nb_alert")
       )
 
+    // Rename "exercise" to "exercise_id" to respect the database structure
     val finalDF = averageScoreDF
       .withColumnRenamed("exercise", "exercise_id")
 
+    // Append the dataframe to the 'analytics' table of the database
     finalDF.write
       .mode("append")
       .jdbc(jdbcUrl, "analytics", dbProperties)
