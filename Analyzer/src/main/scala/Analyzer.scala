@@ -3,6 +3,7 @@ import org.apache.hadoop.fs.{FileSystem, FileStatus, Path}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.util.Properties
+import java.net.URI
 
 class Analyzer {
   // Setup spark session
@@ -12,9 +13,9 @@ class Analyzer {
 
 
   // Setup retrieval of files from hdfs
-  private val hdfsFilePattern = "hdfs://hdfs-datanode/students/report_*.csv"
+  private val hdfsFilePattern = "/topics/student_report/partition=0/*.json"
   private val hadoopConfig = new Configuration()
-  private val hdfs = FileSystem.get(hadoopConfig)
+  private val hdfs = FileSystem.get(new URI("hdfs://localhost:8020"), hadoopConfig)
   private val filePatternPath = new Path(hdfsFilePattern)
 
   private val fileStatuses: Array[FileStatus] = hdfs.globStatus(filePatternPath)
@@ -22,20 +23,20 @@ class Analyzer {
 
   private val studentDF: DataFrame = spark.read
     .option("header", "true")
-    .csv(filePaths: _*)
+    .json(filePaths: _*)
 
   // Setup connection to database
   private val jdbcUrl = "jdbc:postgresql://analytics-db:5432/analytics"
   private val dbProperties = new Properties()
 
-  dbProperties.setProperty("user", "analytics")
-  dbProperties.setProperty("password", "kafka")
+  dbProperties.setProperty("user", "analytics_service")
+  dbProperties.setProperty("password", sys.env.getOrElse("DB_PASSWORD", "analytics123"))
   dbProperties.setProperty("driver", "org.postgresql.Driver")
 
   // Example for writing a dataframe in the db
   /* studentDF.write
       .mode("overwrite")
-      .jdbc(jdbcUrl, "table_name", dbProperties)
+      .jdbc(jdbcUrl, "analytics", dbProperties)
    */
 
   /*

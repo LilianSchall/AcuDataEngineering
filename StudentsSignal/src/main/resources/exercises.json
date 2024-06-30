@@ -2,12 +2,12 @@
   "exercises": [
     {
       "name": "80cols",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 1
     },
     {
       "name": "80cols_grep",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 2
     },
     {
@@ -22,17 +22,17 @@
     },
     {
       "name": "alphanum",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 5
     },
     {
       "name": "array_max_min",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 6
     },
     {
       "name": "ascii_carousel",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 7
     },
     {
@@ -42,32 +42,32 @@
     },
     {
       "name": "assignment_operator",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 9
     },
     {
       "name": "binary_cipher",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 10
     },
     {
       "name": "binary_search",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 11
     },
     {
       "name": "binary_search_ptr",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 12
     },
     {
       "name": "binary_tree_dynamic",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 13
     },
     {
       "name": "bit_rotation",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 14
     },
     {
@@ -77,7 +77,7 @@
     },
     {
       "name": "check_alphabet",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 16
     },
     {
@@ -87,7 +87,7 @@
     },
     {
       "name": "connect4",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 18
     },
     {
@@ -102,12 +102,12 @@
     },
     {
       "name": "cut_csv",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 21
     },
     {
       "name": "date_format",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 22
     },
     {
@@ -122,12 +122,12 @@
     },
     {
       "name": "dlist",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 25
     },
     {
       "name": "element_count",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 26
     },
     {
@@ -137,12 +137,12 @@
     },
     {
       "name": "fact_iter",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 28
     },
     {
       "name": "facto",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 29
     },
     {
@@ -157,22 +157,22 @@
     },
     {
       "name": "fifo",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 32
     },
     {
       "name": "file_basics_insert_line",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 33
     },
     {
       "name": "file_basics_merge_files",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 34
     },
     {
       "name": "find_ascii",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 35
     },
     {
@@ -182,7 +182,7 @@
     },
     {
       "name": "freq_analysis",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 37
     },
     {
@@ -197,7 +197,7 @@
     },
     {
       "name": "generic_void_list",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 40
     },
     {
@@ -207,12 +207,12 @@
     },
     {
       "name": "glob_easy",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 42
     },
     {
       "name": "glob_remove_shell",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 43
     },
     {
@@ -227,12 +227,12 @@
     },
     {
       "name": "hacker_news",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 46
     },
     {
       "name": "handling_complex",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 47
     },
     {
@@ -242,7 +242,7 @@
     },
     {
       "name": "hash_map",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 49
     },
     {
@@ -262,32 +262,32 @@
     },
     {
       "name": "highest_common_factor",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 53
     },
     {
       "name": "hill_array",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 54
     },
     {
       "name": "insertion_sort",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 55
     },
     {
       "name": "inside",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 56
     },
     {
       "name": "inside_noif",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 57
     },
     {
       "name": "int_mats_mult",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 58
     },
     {
@@ -302,22 +302,22 @@
     },
     {
       "name": "int_vector_insert_sort",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 61
     },
     {
       "name": "int_vector_max",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 62
     },
     {
       "name": "levenshtein",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 63
     },
     {
       "name": "lookup_table",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 64
     },
     {
@@ -327,32 +327,32 @@
     },
     {
       "name": "my_atoi",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 66
     },
     {
       "name": "my_bc",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 67
     },
     {
       "name": "my_c_tail",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 68
     },
     {
       "name": "my_calloc",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 69
     },
     {
       "name": "my_file",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 70
     },
     {
       "name": "my_first_variable",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 71
     },
     {
@@ -362,12 +362,12 @@
     },
     {
       "name": "my_itoa",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 73
     },
     {
       "name": "my_itoa_base",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 74
     },
     {
@@ -377,7 +377,7 @@
     },
     {
       "name": "my_memmove",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 76
     },
     {
@@ -387,7 +387,7 @@
     },
     {
       "name": "my_recycler",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 78
     },
     {
@@ -397,17 +397,17 @@
     },
     {
       "name": "my_strcasecmp",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 80
     },
     {
       "name": "my_strcmp",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 81
     },
     {
       "name": "my_strcpy",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 82
     },
     {
@@ -422,7 +422,7 @@
     },
     {
       "name": "my_strlowcase",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 85
     },
     {
@@ -432,17 +432,17 @@
     },
     {
       "name": "my_strspn",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 87
     },
     {
       "name": "my_strstr",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 88
     },
     {
       "name": "my_strtok_r",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 89
     },
     {
@@ -452,7 +452,7 @@
     },
     {
       "name": "null_terminated_arrays",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 91
     },
     {
@@ -462,7 +462,7 @@
     },
     {
       "name": "palindrome",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 93
     },
     {
@@ -487,12 +487,12 @@
     },
     {
       "name": "prototypes",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 98
     },
     {
       "name": "quick_sort",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 99
     },
     {
@@ -512,12 +512,12 @@
     },
     {
       "name": "rotx",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 103
     },
     {
       "name": "run_length_encoding",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 104
     },
     {
@@ -532,47 +532,47 @@
     },
     {
       "name": "seq",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 107
     },
     {
       "name": "sieve_eratosthenes_advanced",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 108
     },
     {
       "name": "spoilers",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 109
     },
     {
       "name": "stack",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 110
     },
     {
       "name": "str_revert",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 111
     },
     {
       "name": "string_replace",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 112
     },
     {
       "name": "test_a_bit",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "id": 113
     },
     {
       "name": "tinylibstream",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 114
     },
     {
       "name": "user_ids",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 115
     },
     {
@@ -582,12 +582,12 @@
     },
     {
       "name": "variant",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 117
     },
     {
       "name": "vector",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "id": 118
     }
   ]

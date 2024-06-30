@@ -26,12 +26,26 @@ def insert_regions(db):
                 )
             db.commit()
 
+def insert_cities(db):
+    with open("/app/resources/coords.json") as f:
+        data = json.load(f)
+        with db.cursor() as cur:
+            for region in data["regions"]:
+                for city in region["cities"]:
+                    cur.execute(
+                        "INSERT INTO cities (name, latitude, longitude, region_id)" "VALUES (%s, %s, %s, %s)",
+                        (city["city"], city["latitude"], city["longitude"], region["region_id"]),
+                    )
+            db.commit()
+
 def main():
     db = get_db()
     insert_exercises(db)
     print("Inserted exercises")
     insert_regions(db)
     print("Inserted regions")
+    insert_cities(db)
+    print("Inserted cities")
 
 
 if __name__ == "__main__":

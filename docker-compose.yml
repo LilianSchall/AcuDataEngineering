@@ -64,6 +64,8 @@ services:
     image: "apache/hadoop:3"
     hostname: "hdfs-namenode"
     command: ["hdfs", "namenode"]
+    ports:
+      - "8020:8020"
     env_file:
       - ./hdfs-config/config
     environment:
@@ -145,6 +147,7 @@ services:
       SPARK_MODE: "master"
     ports:
       - "8080:8080"
+      - "7077:7077"
   spark-worker:
     depends_on:
       spark-master:
