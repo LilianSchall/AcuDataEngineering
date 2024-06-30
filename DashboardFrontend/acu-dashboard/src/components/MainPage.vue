@@ -9,7 +9,8 @@
           <h2 class="mt-2 ml-3">Regions</h2>
           <v-list density="comfortable">
             <v-list-item v-for="region in region_ranks" :key="region.id" @click="clickedRegion(region.id)">
-              <v-list-item-title :class="[`rank-${region.rank}`]">#{{ region.rank }} - {{ region.id }}</v-list-item-title>
+              <v-list-item-title :class="[`rank-${region.rank}`]">#{{ region.rank }} - {{ region.name
+                }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-card>
@@ -17,7 +18,7 @@
       <v-col cols="8" class="text-center pb-0">
         <div class="d-flex justify-space-between">
           <div v-if="hoveredRegion" class="tooltip">
-            {{ "Region : " + hoveredRegion }}
+            {{ "Region : " + getRegionName(hoveredRegion) }}
           </div>
           <div v-else class="tooltip" @click="clickedRegion(0)">
             Toute la France
@@ -25,37 +26,36 @@
           <div class="tooltip" @click="viewExercise(selectedExercise)">
             {{ selectedExercise }}
           </div>
-          <v-dialog v-model="dialogExercise" max-width="90vw" max-height="80vh">
-          <v-card>
-            <v-card-title class="d-flex flex-rows">
-              <h2 class="mt-2 ml-2">
-                {{ selectedExercise }}
-              </h2>
-              <v-spacer></v-spacer>
-              <v-card-actions>
-                <v-btn text @click="dialogExercise = false" icon="mdi-close">
-                </v-btn>
-              </v-card-actions>
-            </v-card-title>
-            <v-card-text>
-              <v-data-table-virtual fixed-header height="60vh" density="comfortable"
-                :items="scores_info"></v-data-table-virtual>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
+          <v-dialog v-model="dialogExercise" max-width="50vw" max-height="80vh">
+            <v-card>
+              <v-card-title class="d-flex flex-rows">
+                <h2 class="mt-2 ml-2">
+                  {{ selectedExercise }}
+                </h2>
+                <v-spacer></v-spacer>
+                <v-card-actions>
+                  <v-btn text @click="dialogExercise = false" icon="mdi-close">
+                  </v-btn>
+                </v-card-actions>
+              </v-card-title>
+              <v-card-text>
+                <v-data-table-virtual fixed-header height="60vh" density="comfortable"
+                  :items="exercises_scores_info"></v-data-table-virtual>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
         </div>
         <div class="mt-5">
-          <svg xmlns:svg="http://www.w3.org/2000/svg" id="svg2" height="540" width="550"
-            class="france-map">
-            <path v-for="region of regions" :key="region.id" :id="region.id" :d="region.path"
+          <svg xmlns:svg="http://www.w3.org/2000/svg" id="svg2" height="540" width="550" class="france-map">
+            <path v-for="region of regions_paths" :key="region.id" :id="region.id" :d="region.path"
               @click="clickedRegion(region.id)" :class="[
-              'region',
-              `rank-${region.rank}`,
-              { 'hovered-region': region.id === hoveredRegion },
-            ]" @mouseover="onMouseOver($event, region.id)" @mouseout="onMouseOut()" />
+      'region',
+      `rank-${getRegionRank(region.id)}`,
+      { 'hovered-region': region.id === hoveredRegion },
+    ]" @mouseover="onMouseOver($event, region.id)" @mouseout="onMouseOut()" />
           </svg>
         </div>
-        <v-dialog v-model="dialogRegion" max-width="90vw" max-height="80vh">
+        <v-dialog v-model="dialogRegion" max-width="50vw" max-height="80vh">
           <v-card>
             <v-card-title class="d-flex flex-rows">
               <h2 class="mt-2 ml-2">
@@ -69,7 +69,7 @@
             </v-card-title>
             <v-card-text>
               <v-data-table-virtual fixed-header height="60vh" density="comfortable"
-                :items="scores_info"></v-data-table-virtual>
+                :items="regions_scores_info"></v-data-table-virtual>
             </v-card-text>
           </v-card>
         </v-dialog>
@@ -78,9 +78,7 @@
         <v-card>
           <h2 class="mt-2 ml-3">Exercices</h2>
           <v-list height="80vh" density="comfortable" slim selectable :items="exercises_info" item-title="name"
-            item-value="id"
-            @update:selected="selectExercise($event)"
-            >
+            item-value="id" @update:selected="selectExercise($event)">
             <template v-slot:item="{ props }">
               <v-list-item v-bind="props">
                 <template v-slot:prepend="{ isActive }">
@@ -99,46 +97,58 @@
 
 <script setup>
 import { ref } from "vue";
-
-import paths from "@/utils/france-map.json";
-import exercises from "@/utils/exercises.json";
-import scores from "@/utils/scores_example.json";
-
 import { useAppStore } from "@/stores/app";
-
-const appStore = useAppStore();
-
-const hello = appStore.hello;
-
-console.log(hello);
+import paths from "@/utils/france-map.json";
 
 const loading = ref(false);
 
+const appStore = useAppStore();
+
+// Load the regions and exercises
+appStore.getRegions();
+appStore.updateRegionRanks();
+appStore.getExercises();
+
+// Get the list of exercises
+const exercises_info = appStore.exercises;
+
+// Get the regions and their ranks
+const region_info = appStore.regions;
+region_info.sort((a, b) => a.rank - b.rank);
 const region_ranks = ref([]);
-
-const regions = paths["paths"];
-
-const exercises_info = exercises["exercises"];
-
-const scores_info = scores["scores"];
-
-console.log(scores_info);
-
-regions.sort((a, b) => a.rank - b.rank);
-
-regions.forEach((region) => {
+region_info.forEach((region) => {
   region_ranks.value.push({
     id: region.id,
     rank: region.rank,
-    name: region.id,
+    name: region.name,
   });
 });
+
+// Get the regions paths
+const regions_paths = paths["paths"];
+
+const getRegionRank = (regionId) => {
+  const region = region_info.find((region) => region.id === regionId);
+  return region ? region.rank : 0;
+}
+
+const getRegionName = (regionId) => {
+  const region = region_info.find((region) => region.id === regionId);
+  return region ? region.name : "Toute la France";
+}
+
+const getExerciseName = (exerciseId) => {
+  const exercise = exercises_info.find((exercise) => exercise.id === exerciseId);
+  return exercise ? exercise.name : "Tous les exercices";
+}
 
 const hoveredRegion = ref(null);
 const dialogRegion = ref(false);
 const dialogExercise = ref(false);
 const selectedRegion = ref({});
 const selectedExercise = ref("Tous les exercices");
+const exercises_scores_info = ref([]);
+const regions_scores_info = ref([]);
 
 const onMouseOver = (event, regionId) => {
   hoveredRegion.value = regionId;
@@ -152,22 +162,67 @@ const onMouseOut = () => {
 
 
 const selectExercise = (id) => {
-  console.log(id);
   if (id.length === 0) {
+    id = 0;
     selectedExercise.value = "Tous les exercices";
   } else {
+    id = id[0];
     selectedExercise.value = "Exercice : " + exercises_info[id - 1]["name"];
   }
+
+  // Now we need to update the ranks of the regions
+  console.log('Updating ranks for id : ', id)
+  appStore.updateRegionRanks(id);
+  const new_region_info = appStore.regions;
+
+  new_region_info.sort((a, b) => a.rank - b.rank);
+
+  region_ranks.value = [];
+
+  new_region_info.forEach((region) => {
+    region_ranks.value.push({
+      id: region.id,
+      rank: region.rank,
+      name: region.name,
+    });
+  });
 };
 
 const viewExercise = (exercise) => {
   console.log(exercise);
+
+  // Get the scores for the selected exercise
+  const scores = appStore.exercises_scores;
+
+  exercises_scores_info.value = scores.map((region) => {
+    return {
+      region: getRegionName(region.id_region),
+      score: region.score
+    }
+  })
+  
   dialogExercise.value = true;
+
+
 };
 
 const clickedRegion = (regionId) => {
-  console.log(regionId);
-  selectedRegion.value = regionId;
+  selectedRegion.value = getRegionName(regionId);
+
+  console.log('Clicked region : ', regionId)
+
+  // Update the selected region scores
+  appStore.fetchRegionsScores(regionId);
+
+  const scores = appStore.regions_scores;
+
+  regions_scores_info.value = scores.map((exercise) => {
+    return {
+      exercice: getExerciseName(exercise.id_exercise),
+      score: exercise.score
+    }
+  })
+
   dialogRegion.value = true;
 };
 </script>
