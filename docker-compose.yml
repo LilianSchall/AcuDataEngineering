@@ -175,3 +175,23 @@ services:
       POSTGRES_PASSWORD: admin123
       DASHBOARD_SERVICE_PASSWORD: dashboard123
       ANALYTICS_SERVICE_PASSWORD: analytics123
+
+  # dashboard instances
+  dashboard-backend:
+    container_name: "dashboard-backend"
+    hostname: "dashboard-backend"
+    image: acu-dashboard-backend:latest
+    depends_on:
+      analytics-db:
+        condition: service_started
+    restart: unless-stopped
+    build:
+      context: ./DashboardBackend
+    ports:
+      - "81:80"
+    environment:
+      DB_HOST: "analytics-db"
+      DB_PORT: "5432"
+      DB_NAME: "acu_infra"
+      DB_USER: "dashboard_service"
+      DB_PASSWORD: "dashboard123"
