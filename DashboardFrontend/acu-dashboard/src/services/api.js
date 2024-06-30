@@ -47,7 +47,7 @@ const getRegionAverageScore = async (regionId) => {
         regionId = 0;
     }
     const response = await api.get(`/region_score/${regionId}`);
-    return response.data;
+    return response.data['average_score'];
 }
 
 const getRegionNbAlerts = async (regionId) => {
@@ -70,7 +70,7 @@ const getRegionNbAlerts = async (regionId) => {
         regionId = 0;
     }
     const response = await api.get(`/region_nb_alert/${regionId}`);
-    return response.data;
+    return response.data['nb_alert'];
 }
 
 const getExerciseIds = async () => {
@@ -117,7 +117,7 @@ const getExerciseAverageScore = async (exerciseId) => {
         exerciseId = 0;
     }
     const response = await api.get(`/exercise_score/${exerciseId}`);
-    return response.data;
+    return response.data['average_score'];
 }
 
 const getExerciseNbAlerts = async (exerciseId) => {
@@ -139,7 +139,7 @@ const getExerciseNbAlerts = async (exerciseId) => {
         exerciseId = 0;
     }
     const response = await api.get(`/exercise_nb_alert/${exerciseId}`);
-    return response.data;
+    return response.data['nb_alert'];
 }
 
 export {

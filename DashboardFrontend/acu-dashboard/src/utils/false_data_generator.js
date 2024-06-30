@@ -732,9 +732,93 @@ const getExerciseAverageScore = (exerciseId) => {
   }['average_score'];
 };
 
+const getExerciseNbAlerts = (exerciseId) => {
+  return {
+    'nb_alert': [
+      {
+        'id_region': 1,
+        'nb_alert': 10
+      },
+      {
+        'id_region': 2,
+        'nb_alert': 20
+      },
+      {
+        'id_region': 3,
+        'nb_alert': 30
+      },
+      {
+        'id_region': 4,
+        'nb_alert': 40
+      },
+      {
+        'id_region': 5,
+        'nb_alert': 50
+      },
+      {
+        'id_region': 6,
+        'nb_alert': 60
+      },
+      {
+        'id_region': 7,
+        'nb_alert': 70
+      },
+      {
+        'id_region': 8,
+        'nb_alert': 80
+      },
+      {
+        'id_region': 9,
+        'nb_alert': 90
+      },
+      {
+        'id_region': 10,
+        'nb_alert': 100
+      },
+      {
+        'id_region': 11,
+        'nb_alert': 110
+      },
+      {
+        'id_region': 12,
+        'nb_alert': 120
+      },
+    ]
+  }['nb_alert'];
+}
+
+const getRegionNbAlerts = (regionId) => {
+  return {
+    'nb_alert': [
+      {
+        'id_exercise': 1,
+        'nb_alert': 10
+      },
+      {
+        'id_exercise': 2,
+        'nb_alert': 20
+      },
+      {
+        'id_exercise': 3,
+        'nb_alert': 30
+      },
+      {
+        'id_exercise': 4,
+        'nb_alert': 40
+      },
+      {
+        'id_exercise': 5,
+        'nb_alert': 50
+      }
+    ]
+  }['nb_alert'];
+}
+
 export {
     getRegionIds,
     getRegionAverageScore,
     getExerciseIds,
+    getExerciseNbAlerts,
     getExerciseAverageScore,
+    getRegionNbAlerts,
 }

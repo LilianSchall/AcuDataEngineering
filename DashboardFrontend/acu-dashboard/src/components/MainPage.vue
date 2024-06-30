@@ -142,6 +142,8 @@ const getExerciseName = (exerciseId) => {
   return exercise ? exercise.name : "Tous les exercices";
 }
 
+const sort_by_score = ref(true);
+
 const hoveredRegion = ref(null);
 const dialogRegion = ref(false);
 const dialogExercise = ref(false);
@@ -172,7 +174,7 @@ const selectExercise = (id) => {
 
   // Now we need to update the ranks of the regions
   console.log('Updating ranks for id : ', id)
-  appStore.updateRegionRanks(id);
+  appStore.updateRegionRanks(id, sort_by_score.value);
   const new_region_info = appStore.regions;
 
   new_region_info.sort((a, b) => a.rank - b.rank);
@@ -193,11 +195,13 @@ const viewExercise = (exercise) => {
 
   // Get the scores for the selected exercise
   const scores = appStore.exercises_scores;
+  const nb_alerts = appStore.exercises_nb_alerts;
 
   exercises_scores_info.value = scores.map((region) => {
     return {
       region: getRegionName(region.id_region),
-      score: region.score
+      score: region.score,
+      alerts: nb_alerts.find((alert) => alert.id_region === region.id_region).nb_alert
     }
   })
   
@@ -213,13 +217,16 @@ const clickedRegion = (regionId) => {
 
   // Update the selected region scores
   appStore.fetchRegionsScores(regionId);
+  appStore.fetchRegionsNbAlerts(regionId);
 
   const scores = appStore.regions_scores;
+  const nb_alerts = appStore.regions_nb_alerts;
 
   regions_scores_info.value = scores.map((exercise) => {
     return {
       exercice: getExerciseName(exercise.id_exercise),
-      score: exercise.score
+      score: exercise.score,
+      alerts: nb_alerts.find((alert) => alert.id_exercise === exercise.id_exercise).nb_alert
     }
   })
 
