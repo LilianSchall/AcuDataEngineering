@@ -11,7 +11,6 @@ import java.net.URI
 class Analyzer {
   private val conf: SparkConf = new SparkConf()
     .setAppName("Student report analyzer")
-    .setMaster("spark://localhost:7077")
 
   // Setup spark session
   private val spark = SparkSession.builder()
@@ -22,7 +21,7 @@ class Analyzer {
   // Setup retrieval of files from hdfs
   private val hdfsFilePattern = "/topics/student_report/partition=0/*.json"
   private val hadoopConfig = new Configuration()
-  private val hdfs = FileSystem.get(new URI("hdfs://localhost:8020"), hadoopConfig)
+  private val hdfs = FileSystem.get(new URI("hdfs://hdfs-namenode:8020"), hadoopConfig)
   private val filePatternPath = new Path(hdfsFilePattern)
 
   private val fileStatuses: Array[FileStatus] = hdfs.globStatus(filePatternPath)
@@ -33,7 +32,7 @@ class Analyzer {
     .json(filePaths: _*)
 
   // Setup connection to database
-  private val jdbcUrl = "jdbc:postgresql://analytics-db:5432/analytics"
+  private val jdbcUrl = "jdbc:postgresql://analytics-db:5432/acu_infra"
   private val dbProperties = new Properties()
 
   dbProperties.setProperty("user", "analytics_service")
@@ -68,9 +67,8 @@ class Analyzer {
       .withColumnRenamed("exercise", "exercise_id")
 
     finalDF.write
-      .mode("overwrite")
+      .mode("append")
       .jdbc(jdbcUrl, "analytics", dbProperties)
-      .save()
 
     // Delete all processed files
     fileStatuses.foreach(status => {
