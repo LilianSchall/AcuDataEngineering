@@ -1,14 +1,21 @@
 import org.apache.hadoop.conf.{Configuration}
 import org.apache.hadoop.fs.{FileSystem, FileStatus, Path}
 import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.functions.avg
+import org.apache.spark.SparkConf
+
 
 import java.util.Properties
 import java.net.URI
 
 class Analyzer {
+  private val conf: SparkConf = new SparkConf()
+    .setAppName("Student report analyzer")
+    .setMaster("spark://localhost:7077")
+
   // Setup spark session
   private val spark = SparkSession.builder()
-    .appName("Student report analyzer")
+    .config(conf)
     .getOrCreate()
 
 
@@ -33,6 +40,10 @@ class Analyzer {
   dbProperties.setProperty("password", sys.env.getOrElse("DB_PASSWORD", "analytics123"))
   dbProperties.setProperty("driver", "org.postgresql.Driver")
 
+  // Read cities database
+  private val citiesDF: DataFrame = spark.read
+    .jdbc(jdbcUrl, "cities", dbProperties)
+
   // Example for writing a dataframe in the db
   /* studentDF.write
       .mode("overwrite")
@@ -44,7 +55,22 @@ class Analyzer {
    * Commit the different dataframes you may become into the postgresql database.
    */
   def run(): Unit = {
-    ???
+
+    val studentWithRegionDF = studentDF
+      .join(citiesDF, Seq("latitude", "longitude"), "left")
+      .select("login", "region_id", "exercise", "score")
+
+    val averageScoreDF = studentWithRegionDF
+      .groupBy("region_id", "exercise")
+      .agg(avg("score").alias("average_score"))
+
+    val finalDF = averageScoreDF
+      .withColumnRenamed("exercise", "exercise_id")
+
+    finalDF.write
+      .mode("overwrite")
+      .jdbc(jdbcUrl, "analytics", dbProperties)
+      .save()
 
     // Delete all processed files
     fileStatuses.foreach(status => {
