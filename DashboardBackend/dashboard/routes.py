@@ -58,15 +58,24 @@ def get_region_average_score():
     cur = conn.cursor()
 
     if id is None or id == 0:
-        cur.execute('SELECT exercise_id, average_score FROM analytics')
+        #TODO: change for correct format
+        cur.execute('SELECT exercise_id, average_score FROM analytics WHERE MAX(created_at)')
     else:
-        cur.execute('SELECT exercise_id, average_score FROM analytics WHERE region_id = %s AND MAX(created_at)', (id))
+        cur.execute('''SELECT exercise_id, average_score
+                    FROM analytics a
+                    WHERE region_id = %s
+                    AND created_at = (
+                        SELECT MAX(created_at)
+                        FROM analytics
+                        WHERE region_id = a.region_id AND exercise_id = a.exercise_id
+                    )''', (id))
 
     averages = cur.fetchall()
     cur.close()
     conn.close()
 
     averages_list = [{'id_exercice': average[0], 'score': average[1]} for average in averages]
+    logger(averages_list)
 
     return jsonify({"average_score": averages_list})
 
@@ -113,6 +122,7 @@ def get_exercise_ids():
     conn.close()
 
     exercises_list = [{"id": exercise[0], "name": exercise[1], "difficulty": exercise[2]} for exercise in exercises]
+    logger(exercises_list)
 
     return jsonify({"exercises": exercises_list})
 
@@ -140,9 +150,17 @@ def get_exercise_average_score():
     cur = conn.cursor()
 
     if id is None or id == 0:
-        cur.execute('SELECT region_id, average_score FROM analytics')
+        #TODO: change for correct format
+        cur.execute('SELECT region_id, average_score FROM analytics WHERE MAX(created_at)')
     else:
-        cur.execute('SELECT region_id, average_score FROM analytics WHERE exercise_id = %s AND MAX(created_at)', (id))
+        cur.execute('''SELECT region_id, average_score
+                    FROM analytics a
+                    WHERE exercise_id = %s
+                    AND created_at = (
+                        SELECT MAX(created_at)
+                        FROM analytics
+                        WHERE region_id = a.region_id AND exercise_id = a.exercise_id
+                    )''', (id))
 
     averages = cur.fetchall()
     cur.close()
