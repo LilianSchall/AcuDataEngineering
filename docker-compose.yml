@@ -31,7 +31,7 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
   kafka-out:
     container_name: "kafka-out"
-    hostname: "kafka-in"
+    hostname: "kafka-out"
     image: "apache/kafka:3.7.0"
     ports:
       - 9093:9092
