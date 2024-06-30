@@ -1,7 +1,7 @@
 import org.apache.hadoop.conf.{Configuration}
 import org.apache.hadoop.fs.{FileSystem, FileStatus, Path}
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.spark.sql.functions.avg
+import org.apache.spark.sql.functions.{avg, col, count, when}
 import org.apache.spark.SparkConf
 
 
@@ -61,7 +61,10 @@ class Analyzer {
 
     val averageScoreDF = studentWithRegionDF
       .groupBy("region_id", "exercise")
-      .agg(avg("score").alias("average_score"))
+      .agg(
+        avg("score").alias("average_score"),
+        count(when(col("score") <= 20, true)).alias("nb_alert")
+      )
 
     val finalDF = averageScoreDF
       .withColumnRenamed("exercise", "exercise_id")
