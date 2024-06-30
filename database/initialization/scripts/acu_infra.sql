@@ -25,5 +25,6 @@ CREATE TABLE IF NOT EXISTS analytics (
     region_id INTEGER NOT NULL,
     exercise_id INTEGER NOT NULL,
     average_score DECIMAL NOT NULL,
+    nb_alert INTEGER NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

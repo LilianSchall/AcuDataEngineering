@@ -6,7 +6,7 @@
         "tasks.max": 1,
         "topics": "student_report",
         "hdfs.url": "hdfs://hdfs-namenode:8020",
-        "flush.size": 100,
+        "flush.size": 1000,
         "format.class": "io.confluent.connect.hdfs3.json.JsonFormat",
         "partitioner.class": "io.confluent.connect.storage.partitioner.DefaultPartitioner",
         "hive.integration": false,
