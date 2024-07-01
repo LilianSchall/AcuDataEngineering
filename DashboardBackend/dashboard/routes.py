@@ -58,7 +58,7 @@ def get_region_average_score():
 
     if id is None or id == 0:
         cur.execute('''SELECT exercise_id, average_score
-                    FROM analytics
+                    FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
                         FROM analytics
@@ -122,7 +122,7 @@ def get_region_nb_alert():
     if id is None or id == 0:
         #TODO: change for correct format
         cur.execute('''SELECT exercise_id, nb_alert
-                    FROM analytics
+                    FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
                         FROM analytics
@@ -213,7 +213,7 @@ def get_exercise_average_score():
     if id is None or id == 0:
         #TODO: change for correct format
         cur.execute('''SELECT region_id, average_score
-                    FROM analytics
+                    FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
                         FROM analytics
@@ -277,7 +277,7 @@ def get_exercise_nb_alert():
     if id is None or id == 0:
         #TODO: change for correct format
         cur.execute('''SELECT region_id, nb_alert
-                    FROM analytics
+                    FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
                         FROM analytics
