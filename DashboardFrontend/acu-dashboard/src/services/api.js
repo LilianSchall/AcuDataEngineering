@@ -50,7 +50,7 @@ const getRegionAverageScore = async (regionId) => {
     if (!regionId) {
         regionId = 0;
     }
-    const response = await api.get(`/region_score/${regionId}`);
+    const response = await api.get(`/region_score?id=${regionId}`);
     return response.data['average_score'];
 }
 
@@ -73,7 +73,7 @@ const getRegionNbAlerts = async (regionId) => {
     if (!regionId) {
         regionId = 0;
     }
-    const response = await api.get(`/region_nb_alert/${regionId}`);
+    const response = await api.get(`/region_nb_alert?id=${regionId}`);
     return response.data['nb_alert'];
 }
 
@@ -120,7 +120,7 @@ const getExerciseAverageScore = async (exerciseId) => {
     if (!exerciseId) {
         exerciseId = 0;
     }
-    const response = await api.get(`/exercises_score/${exerciseId}`);
+    const response = await api.get(`/exercises_score?id=${exerciseId}`);
     return response.data['average_score'];
 }
 
@@ -142,7 +142,7 @@ const getExerciseNbAlerts = async (exerciseId) => {
     if (!exerciseId) {
         exerciseId = 0;
     }
-    const response = await api.get(`/exercises_nb_alert/${exerciseId}`);
+    const response = await api.get(`/exercises_nb_alert?id=${exerciseId}`);
     return response.data['nb_alert'];
 }
 

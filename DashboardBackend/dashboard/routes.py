@@ -57,7 +57,6 @@ def get_region_average_score():
     cur = conn.cursor()
 
     if id is None or id == 0:
-        #TODO: change for correct format
         cur.execute('''SELECT exercise_id, average_score
                     FROM analytics
                     WHERE created_at = (
