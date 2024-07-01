@@ -105,12 +105,14 @@ const loading = ref(false);
 const appStore = useAppStore();
 
 // Load the regions and exercises
-appStore.getRegions();
-appStore.updateRegionRanks();
-appStore.getExercises();
+await appStore.getRegions();
+await appStore.updateRegionRanks();
+await appStore.getExercises();
 
 // Get the list of exercises
 const exercises_info = appStore.exercises;
+
+console.log('ex_info_main', exercises_info);
 
 // Get the regions and their ranks
 const region_info = appStore.regions;

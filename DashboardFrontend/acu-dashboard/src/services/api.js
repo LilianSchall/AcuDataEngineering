@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-  //baseURL: '',
+	baseURL: 'http://localhost:81',
 });
+
 
 const getRegionIds = async () => {
 
@@ -22,7 +23,10 @@ const getRegionIds = async () => {
     }
     */
 
-    const response = await api.get('/regions_ids');
+    const response = await api.get('/region_ids');
+
+    console.log('res', response)
+
     return response.data['regions'];
 }
 
@@ -116,7 +120,7 @@ const getExerciseAverageScore = async (exerciseId) => {
     if (!exerciseId) {
         exerciseId = 0;
     }
-    const response = await api.get(`/exercise_score/${exerciseId}`);
+    const response = await api.get(`/exercises_score/${exerciseId}`);
     return response.data['average_score'];
 }
 
@@ -138,7 +142,7 @@ const getExerciseNbAlerts = async (exerciseId) => {
     if (!exerciseId) {
         exerciseId = 0;
     }
-    const response = await api.get(`/exercise_nb_alert/${exerciseId}`);
+    const response = await api.get(`/exercises_nb_alert/${exerciseId}`);
     return response.data['nb_alert'];
 }
 

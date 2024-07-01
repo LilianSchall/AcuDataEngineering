@@ -1,14 +1,6 @@
 // Utilities
 import { defineStore } from "pinia";
 
-import {
-  getRegionIds,
-  getExerciseIds,
-  getExerciseAverageScore,
-  getExerciseNbAlerts,
-  getRegionAverageScore,
-  getRegionNbAlerts,
-} from "@/utils/false_data_generator";
 // import {
 //   getRegionIds,
 //   getExerciseIds,
@@ -16,7 +8,15 @@ import {
 //   getExerciseNbAlerts,
 //   getRegionAverageScore,
 //   getRegionNbAlerts,
-// } from "@/services/api";
+// } from "@/utils/false_data_generator";
+import {
+  getRegionIds,
+  getExerciseIds,
+  getExerciseAverageScore,
+  getExerciseNbAlerts,
+  getRegionAverageScore,
+  getRegionNbAlerts,
+} from "@/services/api";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
@@ -30,14 +30,16 @@ export const useAppStore = defineStore("app", {
     selectedRegion: 0,
   }),
   actions: {
-    getRegions() {
-      const regions = getRegionIds();
+    async getRegions() {
+      const regions = await getRegionIds();
+      console.log("regions", regions);
       this.regions = regions;
     },
-    updateRegionRanks(exerciseId = 0, by_score = true) {
-      const exercises_scores = getExerciseAverageScore(exerciseId);
+    async updateRegionRanks(exerciseId = 0, by_score = true) {
+      const exercises_scores = await getExerciseAverageScore(exerciseId);
+      console.log('ex_sc', exercises_scores);
       this.exercises_scores = exercises_scores;
-      const exercises_nb_alerts = getExerciseNbAlerts(exerciseId);
+      const exercises_nb_alerts = await getExerciseNbAlerts(exerciseId);
       this.exercises_nb_alerts = exercises_nb_alerts;
 
       if (by_score) {
@@ -62,17 +64,18 @@ export const useAppStore = defineStore("app", {
         });
       }
     },
-    getExercises() {
-      const exercises = getExerciseIds();
+    async getExercises() {
+      const exercises = await getExerciseIds();
       this.exercises = exercises;
     },
-    fetchRegionsScores(regionId = 0) {
-      const regions_scores = getRegionAverageScore(regionId);
+    async fetchRegionsScores(regionId = 0) {
+      const regions_scores = await getRegionAverageScore(regionId);
       this.regions_scores = regions_scores;
     },
-    fetchRegionsNbAlerts(regionId = 0) {
-      const regions_nb_alerts = getRegionNbAlerts(regionId);
+    async fetchRegionsNbAlerts(regionId = 0) {
+      const regions_nb_alerts = await getRegionNbAlerts(regionId);
       this.regions_nb_alerts = regions_nb_alerts;
     },
   },
 });
+
