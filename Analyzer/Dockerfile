@@ -35,4 +35,4 @@ WORKDIR /app
 COPY --from=build /app/target/scala-2.12/Analyzer-assembly-0.1.0-SNAPSHOT.jar /app/app.jar
 COPY ./entrypoint.sh /app/entrypoint.sh
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+CMD [ "/app/entrypoint.sh" ]
