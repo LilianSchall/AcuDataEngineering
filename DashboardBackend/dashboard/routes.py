@@ -1,5 +1,6 @@
 from flask import request, jsonify, abort
 import os
+import sys
 
 from .tools import get_db, logger
 
@@ -19,17 +20,15 @@ from .tools import get_db, logger
 def get_region_ids():
     conn = get_db()
     cur = conn.cursor()
-    logger("connected to database")
 
     cur.execute('SELECT * FROM regions')
 
     regions = cur.fetchall()
     cur.close()
     conn.close()
-    logger("disconnected from database")
 
     regions_list = [{"id": region[0], "name": region[1]} for region in regions]
-    logger(regions_list)
+    print(regions_list, file=sys.stderr)
 
     return jsonify({"regions": regions_list})
 
@@ -89,8 +88,9 @@ def get_region_average_score():
         new_score /= len(averages)
         averages = [{0, new_score}]
 
+    print(averages, file=sys.stderr)
     averages_list = [{'id_exercice': average[0], 'score': average[1]} for average in averages]
-    logger(averages_list)
+    print(averages_list, file=sys.stderr)
 
     return jsonify({"average_score": averages_list})
 
@@ -147,8 +147,9 @@ def get_region_nb_alert():
             total_alerts += alert[1]
         alerts = [{0, total_alerts}]
 
+    print(alerts, file=sys.stderr)
     alerts_list = [{'id_exercice': alert[0], 'nb_alert': alert[1]} for alert in alerts]
-    logger(alerts_list)
+    print(alerts_list, file=sys.stderr)
 
     return jsonify({"nb_alert": alerts_list})
 
@@ -176,8 +177,9 @@ def get_exercise_ids():
     cur.close()
     conn.close()
 
+    print(exercises, file=sys.stderr)
     exercises_list = [{"id": exercise[0], "name": exercise[1], "difficulty": exercise[2]} for exercise in exercises]
-    logger(exercises_list)
+    print(exercises_list, file=sys.stderr)
 
     return jsonify({"exercises": exercises_list})
 
@@ -235,9 +237,10 @@ def get_exercise_average_score():
             new_score += average[1]
         new_score /= len(averages)
         averages = [{0, new_score}]
-            
+
+    print(averages, file=sys.stderr)        
     averages_list = [{'id_exercice': average[0], 'score': average[1]} for average in averages]
-    logger(averages_list)
+    print(averages_list, file=sys.stderr)
 
     return jsonify({"average_score": averages_list})
 
@@ -295,7 +298,8 @@ def get_exercise_nb_alert():
             total_alerts += alert[1]
         alerts = [{0, total_alerts}]
 
+    print(alerts, file=sys.stderr)
     alerts_list = [{'id_region': alert[0], 'nb_alert': alert[1]} for alert in alerts]
-    logger(alerts_list)
+    print(alerts_list, file=sys.stderr)
 
     return jsonify({"nb_alert": alerts_list})
