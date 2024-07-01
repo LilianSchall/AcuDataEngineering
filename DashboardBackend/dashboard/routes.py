@@ -19,18 +19,16 @@ from .tools import get_db, logger
 # }
 def get_region_ids():
     conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM regions')
-
-    regions = cur.fetchall()
-    cur.close()
-    conn.close()
+    with conn.cursor() as cur:
+        cur.execute('SELECT * FROM regions')
+        regions = cur.fetchall()
 
     regions_list = [{"id": region[0], "name": region[1]} for region in regions]
     print(regions_list, file=sys.stderr)
 
-    return jsonify({"regions": regions_list})
+    response = jsonify({"regions": regions_list})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 # GET /region_score/{id}
 # OU
@@ -52,6 +50,8 @@ def get_region_average_score():
     args = request.args
     if 'id' in args:
         id = int(args['id'])
+    else:
+        id = None
 
     conn = get_db()
     cur = conn.cursor()
@@ -79,7 +79,6 @@ def get_region_average_score():
 
     averages = cur.fetchall()
     cur.close()
-    conn.close()
 
     if id is None or id == 0:
         new_score = 0
@@ -92,7 +91,10 @@ def get_region_average_score():
     averages_list = [{'id_exercice': average[0], 'score': average[1]} for average in averages]
     print(averages_list, file=sys.stderr)
 
-    return jsonify({"average_score": averages_list})
+    response = jsonify({"average_score": averages_list})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 
 # GET /region_nb_alert
 # Param id = the region id (from 1 to 13)
@@ -112,6 +114,8 @@ def get_region_nb_alert():
     args = request.args
     if 'id' in args:
         id = int(args['id'])
+    else:
+        id = None
     
     conn = get_db()
     cur = conn.cursor()
@@ -139,7 +143,6 @@ def get_region_nb_alert():
 
     alerts = cur.fetchall()
     cur.close()
-    conn.close()
 
     if id is None or id == 0:
         total_alerts = 0
@@ -151,7 +154,9 @@ def get_region_nb_alert():
     alerts_list = [{'id_exercice': alert[0], 'nb_alert': alert[1]} for alert in alerts]
     print(alerts_list, file=sys.stderr)
 
-    return jsonify({"nb_alert": alerts_list})
+    response = jsonify({"nb_alert": alerts_list})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 # GET /exercises_ids
 # Returns a map of all exercise with key the id, and value the name of the exercise
@@ -169,19 +174,17 @@ def get_region_nb_alert():
 # }
 def get_exercise_ids():
     conn = get_db()
-    cur = conn.cursor()
-
-    cur.execute('SELECT * FROM exercises')
-
-    exercises = cur.fetchall()
-    cur.close()
-    conn.close()
+    with conn.cursor() as cur:
+        cur.execute('SELECT * FROM exercises')
+        exercises = cur.fetchall()
 
     print(exercises, file=sys.stderr)
     exercises_list = [{"id": exercise[0], "name": exercise[1], "difficulty": exercise[2]} for exercise in exercises]
     print(exercises_list, file=sys.stderr)
 
-    return jsonify({"exercises": exercises_list})
+    response = jsonify({"exercises": exercises_list})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 # GET /exercise_score
 # Param id = the exercise id
@@ -202,6 +205,8 @@ def get_exercise_average_score():
     args = request.args
     if 'id' in args:
         id = int(args['id'])
+    else:
+        id = None
 
     conn = get_db()
     cur = conn.cursor()
@@ -229,7 +234,6 @@ def get_exercise_average_score():
 
     averages = cur.fetchall()
     cur.close()
-    conn.close()
 
     if id is None or id == 0:
         new_score = 0
@@ -242,7 +246,9 @@ def get_exercise_average_score():
     averages_list = [{'id_exercice': average[0], 'score': average[1]} for average in averages]
     print(averages_list, file=sys.stderr)
 
-    return jsonify({"average_score": averages_list})
+    response = jsonify({"average_score": averages_list})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 # GET /exercise_nb_alert
 # Param id = the exercise id
@@ -263,6 +269,8 @@ def get_exercise_nb_alert():
     args = request.args
     if 'id' in args:
         id = int(args['id'])
+    else:
+        id = None
     
     conn = get_db()
     cur = conn.cursor()
@@ -290,7 +298,6 @@ def get_exercise_nb_alert():
 
     alerts = cur.fetchall()
     cur.close()
-    conn.close()
 
     if id is None or id == 0:
         total_alerts = 0
@@ -302,4 +309,6 @@ def get_exercise_nb_alert():
     alerts_list = [{'id_region': alert[0], 'nb_alert': alert[1]} for alert in alerts]
     print(alerts_list, file=sys.stderr)
 
-    return jsonify({"nb_alert": alerts_list})
+    response = jsonify({"nb_alert": alerts_list})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
