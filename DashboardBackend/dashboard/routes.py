@@ -57,7 +57,7 @@ def get_region_average_score():
     cur = conn.cursor()
 
     if id is None or id == 0:
-        cur.execute('''SELECT exercise_id, region_id, AVG(average_score) AS average_score
+        cur.execute('''SELECT exercise_id, AVG(average_score) AS average_score
                     FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
@@ -67,7 +67,7 @@ def get_region_average_score():
                     )
                     GROUP BY exercise_id''')
     else:
-        cur.execute('''SELECT exercise_id, region_id, average_score
+        cur.execute('''SELECT exercise_id, average_score
                     FROM analytics a
                     WHERE region_id = %s
                     AND created_at = (
@@ -81,7 +81,7 @@ def get_region_average_score():
     cur.close()
 
     print(averages, file=sys.stderr)
-    averages_list = [{'id_exercise': average[0], 'score': average[2]} for average in averages]
+    averages_list = [{'id_exercise': average[0], 'score': average[1]} for average in averages]
     print(averages_list, file=sys.stderr)
 
     response = jsonify({"average_score": averages_list})
@@ -114,7 +114,7 @@ def get_region_nb_alert():
     cur = conn.cursor()
 
     if id is None or id == 0:
-        cur.execute('''SELECT exercise_id, region_id, SUM(nb_alert) as nb_alert
+        cur.execute('''SELECT exercise_id, SUM(nb_alert) as nb_alert
                     FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
@@ -122,9 +122,9 @@ def get_region_nb_alert():
                         WHERE region_id = a.region_id
                         AND exercise_id = a.exercise_id
                     )
-                    GROUPBY exercise_id''')
+                    GROUP BY exercise_id''')
     else:
-        cur.execute('''SELECT exercise_id, region_id, nb_alert
+        cur.execute('''SELECT exercise_id, nb_alert
                     FROM analytics a
                     WHERE region_id = %s
                     AND created_at = (
@@ -137,14 +137,8 @@ def get_region_nb_alert():
     alerts = cur.fetchall()
     cur.close()
 
-    if id is None or id == 0:
-        total_alerts = 0
-        for alert in alerts:
-            total_alerts += alert[1]
-        alerts = [[0, total_alerts]]
-
     print(alerts, file=sys.stderr)
-    alerts_list = [{'id_exercise': alert[0], 'nb_alert': alert[2]} for alert in alerts]
+    alerts_list = [{'id_exercise': alert[0], 'nb_alert': alert[1]} for alert in alerts]
     print(alerts_list, file=sys.stderr)
 
     response = jsonify({"nb_alert": alerts_list})
@@ -205,16 +199,16 @@ def get_exercise_average_score():
     cur = conn.cursor()
 
     if id is None or id == 0:
-        cur.execute('''SELECT region_id, exercise_id, AVG(average_score) AS average_score
+        cur.execute('''SELECT region_id, AVG(average_score) AS average_score
                     FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
                         FROM analytics
                         WHERE region_id = a.region_id
                         AND exercise_id = a.exercise_id
-                    ) GROUPBY region_id''')
+                    ) GROUP BY region_id''')
     else:
-        cur.execute('''SELECT region_id, exercise_id, average_score
+        cur.execute('''SELECT region_id, average_score
                     FROM analytics a
                     WHERE exercise_id = %s
                     AND created_at = (
@@ -227,15 +221,8 @@ def get_exercise_average_score():
     averages = cur.fetchall()
     cur.close()
 
-    if id is None or id == 0:
-        new_score = 0
-        for average in averages:
-            new_score += average[1]
-        new_score /= len(averages)
-        averages = [[0, new_score]]
-
     print(averages, file=sys.stderr)        
-    averages_list = [{'id_region': average[0], 'score': average[2]} for average in averages]
+    averages_list = [{'id_region': average[0], 'score': average[1]} for average in averages]
     print(averages_list, file=sys.stderr)
 
     response = jsonify({"average_score": averages_list})
@@ -268,16 +255,16 @@ def get_exercise_nb_alert():
     cur = conn.cursor()
 
     if id is None or id == 0:
-        cur.execute('''SELECT region_id, exercise_id, SUM(nb_alert) as nb_alert
+        cur.execute('''SELECT region_id, SUM(nb_alert) as nb_alert
                     FROM analytics a
                     WHERE created_at = (
                         SELECT MAX(created_at)
                         FROM analytics
                         WHERE region_id = a.region_id
                         AND exercise_id = a.exercise_id
-                    )''')
+                    ) GROUP BY region_id''')
     else:
-        cur.execute('''SELECT region_id, exercise_id, nb_alert
+        cur.execute('''SELECT region_id, nb_alert
                     FROM analytics a
                     WHERE exercise_id = %s
                     AND created_at = (
@@ -291,7 +278,7 @@ def get_exercise_nb_alert():
     cur.close()
 
     print(alerts, file=sys.stderr)
-    alerts_list = [{'id_region': alert[0], 'nb_alert': alert[2]} for alert in alerts]
+    alerts_list = [{'id_region': alert[0], 'nb_alert': alert[1]} for alert in alerts]
     print(alerts_list, file=sys.stderr)
 
     response = jsonify({"nb_alert": alerts_list})
