@@ -58,6 +58,23 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
 
+  alert-system:
+    image: acu-alert-system:latest
+    restart: unless-stopped
+    build:
+      context: ./AlertSystem
+    depends_on:
+      kafka-in:
+        condition: service_healthy
+      kafka-out:
+        condition: service_healthy
+    environment:
+      KAFKA_IN_HOST: "PLAINTEXT://kafka-in"
+      KAFKA_IN_PORT: "19092"
+      KAFKA_OUT_HOST: "PLAINTEXT://kafka-out"
+      KAFKA_OUT_PORT: "19092"
+      SCORE_FLOOR: "20"
+
   # distributed storage
   hdfs-namenode:
     container_name: "hdfs-namenode"
@@ -124,6 +141,20 @@ services:
     depends_on:
       kafka-hdfs-sink-connector:
         condition: service_healthy
+
+  student-signal:
+    container_name: "student-signal"
+    hostname: "student-signal"
+    image: acu-student-signal:latest
+    restart: unless-stopped
+    build:
+      context: ./StudentsSignal
+    depends_on:
+      kafka-hdfs-sink-connector:
+        condition: service_healthy
+    environment:
+      KAFKA_IN_HOST: "PLAINTEXT://kafka-in"
+      KAFKA_IN_PORT: "19092"
 
   # Cluster spark
   spark-master:

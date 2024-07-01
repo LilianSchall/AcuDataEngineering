@@ -30,8 +30,6 @@ class Computer {
 
     val value = write(createStudentSignal(timestamp))
 
-    Console.println(value)
-
     val record = new ProducerRecord[String, String]("student_report", "report", value)
     producer.send(record).get()
 
