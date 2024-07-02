@@ -187,6 +187,12 @@ services:
       context: ./database
     ports:
       - "5432:5432"
+    healthcheck:
+      test: psql --dbname "acu_infra" --username "admin" -tc 'SELECT true FROM analytics LIMIT 1' | grep -q 't' || exit -1
+      start_period: 15s
+      interval: 5s
+      timeout: 10s
+      retries: 100
     environment:
       POSTGRES_DB: acu_infra
       POSTGRES_USER: admin
@@ -201,7 +207,7 @@ services:
     image: acu-dashboard-backend:latest
     depends_on:
       analytics-db:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
     build:
       context: ./DashboardBackend
@@ -213,3 +219,16 @@ services:
       DB_NAME: "acu_infra"
       DB_USER: "dashboard_service"
       DB_PASSWORD: "dashboard123"
+
+  dashboard-frontend:
+    container_name: "dashboard-frontend"
+    hostname: "dashboard-frontend"
+    image: acu-dashboard-frontend:latest
+    depends_on:
+      dashboard-backend:
+        condition: service_started
+    restart: unless-stopped
+    build:
+      context: ./DashboardFrontend/acu-dashboard
+    ports:
+      - "80:80"
