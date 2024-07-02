@@ -23,11 +23,11 @@
           <div v-else class="tooltip" @click="clickedRegion(0)">
             Toute la France
           </div>
-          <div>
+          <!--<div>
             Classement par alertes
             <v-switch v-model="sort_by_score" @update:model-value="change_sorting(selectedExercise)" />
             Classement par score
-          </div>
+          </div>-->
           <div class="tooltip" @click="viewExercise(selectedExercise)">
             {{ selectedExercise }}
           </div>
@@ -104,7 +104,6 @@
 import { ref } from "vue";
 import { useAppStore } from "@/stores/app";
 import paths from "@/utils/france-map.json";
-import { sort } from "core-js/core/array";
 
 const loading = ref(false);
 
@@ -150,10 +149,10 @@ const getExerciseName = (exerciseId) => {
   return exercise ? exercise.name : "Tous les exercices";
 }
 
-const getExerciseIdFromName = (exerciseName) => {
-  const exercise = exercises_info.find((exercise) => exercise.name === exerciseName);
-  return exercise ? exercise.id : 0;
-}
+//const getExerciseIdFromName = (exerciseName) => {
+//  const exercise = exercises_info.find((exercise) => exercise.name === exerciseName);
+//  return exercise ? exercise.id : 0;
+//}
 
 const sort_by_score = ref(true);
 
@@ -247,26 +246,26 @@ const clickedRegion = async (regionId) => {
 };
 
 
-const change_sorting = async (exerciseName) => {
-
-  const id = getExerciseIdFromName(exerciseName);
-
-  await appStore.updateRegionRanks(id, sort_by_score.value);
-
-  const new_region_info = appStore.regions;
-
-  new_region_info.sort((a, b) => a.rank - b.rank);
-
-  region_ranks.value = [];
-
-  new_region_info.forEach((region) => {
-    region_ranks.value.push({
-      id: region.id,
-      rank: region.rank,
-      name: region.name,
-    });
-  });
-}
+//const change_sorting = async (exerciseName) => {
+//
+//  const id = getExerciseIdFromName(exerciseName);
+//
+//  await appStore.updateRegionRanks(id, sort_by_score.value);
+//
+//  const new_region_info = appStore.regions;
+//
+//  new_region_info.sort((a, b) => a.rank - b.rank);
+//
+//  region_ranks.value = [];
+//
+//  new_region_info.forEach((region) => {
+//    region_ranks.value.push({
+//      id: region.id,
+//      rank: region.rank,
+//      name: region.name,
+//    });
+//  });
+//}
 
 </script>
 
