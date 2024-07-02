@@ -23,6 +23,11 @@
           <div v-else class="tooltip" @click="clickedRegion(0)">
             Toute la France
           </div>
+          <div>
+            Classement par alertes
+            <v-switch v-model="sort_by_score" @update:model-value="change_sorting(selectedExercise)" />
+            Classement par score
+          </div>
           <div class="tooltip" @click="viewExercise(selectedExercise)">
             {{ selectedExercise }}
           </div>
@@ -99,6 +104,7 @@
 import { ref } from "vue";
 import { useAppStore } from "@/stores/app";
 import paths from "@/utils/france-map.json";
+import { sort } from "core-js/core/array";
 
 const loading = ref(false);
 
@@ -144,6 +150,11 @@ const getExerciseName = (exerciseId) => {
   return exercise ? exercise.name : "Tous les exercices";
 }
 
+const getExerciseIdFromName = (exerciseName) => {
+  const exercise = exercises_info.find((exercise) => exercise.name === exerciseName);
+  return exercise ? exercise.id : 0;
+}
+
 const sort_by_score = ref(true);
 
 const hoveredRegion = ref(null);
@@ -165,7 +176,7 @@ const onMouseOut = () => {
 };
 
 
-const selectExercise = (id) => {
+const selectExercise = async (id) => {
   if (id.length === 0) {
     id = 0;
     selectedExercise.value = "Tous les exercices";
@@ -176,7 +187,7 @@ const selectExercise = (id) => {
 
   // Now we need to update the ranks of the regions
   console.log('Updating ranks for id : ', id)
-  appStore.updateRegionRanks(id, sort_by_score.value);
+  await appStore.updateRegionRanks(id, sort_by_score.value);
   const new_region_info = appStore.regions;
 
   new_region_info.sort((a, b) => a.rank - b.rank);
@@ -212,14 +223,14 @@ const viewExercise = (exercise) => {
 
 };
 
-const clickedRegion = (regionId) => {
+const clickedRegion = async (regionId) => {
   selectedRegion.value = getRegionName(regionId);
 
   console.log('Clicked region : ', regionId)
 
   // Update the selected region scores
-  appStore.fetchRegionsScores(regionId);
-  appStore.fetchRegionsNbAlerts(regionId);
+  await appStore.fetchRegionsScores(regionId);
+  await appStore.fetchRegionsNbAlerts(regionId);
 
   const scores = appStore.regions_scores;
   const nb_alerts = appStore.regions_nb_alerts;
@@ -234,6 +245,29 @@ const clickedRegion = (regionId) => {
 
   dialogRegion.value = true;
 };
+
+
+const change_sorting = async (exerciseName) => {
+
+  const id = getExerciseIdFromName(exerciseName);
+
+  await appStore.updateRegionRanks(id, sort_by_score.value);
+
+  const new_region_info = appStore.regions;
+
+  new_region_info.sort((a, b) => a.rank - b.rank);
+
+  region_ranks.value = [];
+
+  new_region_info.forEach((region) => {
+    region_ranks.value.push({
+      id: region.id,
+      rank: region.rank,
+      name: region.name,
+    });
+  });
+}
+
 </script>
 
 <style scoped>
