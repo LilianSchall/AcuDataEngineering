@@ -43,6 +43,10 @@ docker compose up --build --scale spark-worker=[n]
 avec [n] etant le nombre d'executors du cluster spark que vous souhaitez.
 Nous vous conseillons 3 executors pour une démo agréable.
 
+L'entierete de l'infrastructure prend 3 minutes a etre prete.
+Pour savoir quand l'infrastructure est prete, visitez http://localhost:80.
+Le dashboard ne s'affichera que lorsque l'infrastructure sera prete.
+
 ## Pour nettoyer votre systeme apres demonstration
 
 Veuillez executer la commande suivante:
