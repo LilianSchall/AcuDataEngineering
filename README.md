@@ -7,57 +7,57 @@
     </a>
 </div>
 
-## Description de l'implementation
+## Description de l'implémentation
 
-L'implementation du projet est mise en place au travers d'un docker compose
+L'implémentation du projet est mise en place au travers d'un docker compose
 comportant les services suivants:
-- **student-signal**: un service de spam de l'infrastructure, generant des fausses
-  donnees de maniere intensive.
-- **kafka-in**: la stream kafka recevant en entree les rapports d'etudiants.
-- **kafka-out**: la stream kafka recevant en entree les alertes de score trop bas.
-- **alert-system**: un service kafka-stream qui fetch le contenu de kafka-in et le
-  renvoie dans kafka-out si le score d'un etudiant a un exercice associe est
+- **student-signal**: un service de spam de l'infrastructure, générant des fausses
+  données de manière intensive.
+- **kafka-in**: la stream kafka recevant en entrée les rapports d'étudiants.
+- **kafka-out**: la stream kafka recevant en entrée les alertes de score trop bas.
+- **alert-system**: un service kafka-stream qui fetch le contenu de **kafka-in** et le
+  renvoie dans **kafka-out** si le score d'un étudiant à un exercice associé est
   trop bas.
 - **hdfs-namenode**: le namenode du cluster hdfs.
 - **hdfs-datanode**: le datanode du cluster hdfs.
-- **kafka-hdfs-sink-connector**: un service de depot de la donnee dans le cluster
+- **kafka-hdfs-sink-connector**: un service de dépot de la donnée dans le cluster
   hdfs.
 - **spark-master**: le driver du cluster Spark.
 - **spark-worker**: le(s) executor(s) du cluster Spark.
 - **analyzer-job**: un service qui trigger toutes les minutes une application spark
-  de batch processing de la donnee stockee dans le cluster hdfs.
-- **analytics-db**: la database postgreSQL dans laquelle est deversee le resultat de
+  de batch processing de la donnée stockée dans le cluster hdfs.
+- **analytics-db**: la base de données postgreSQL dans laquelle est deversée le résultat de
   l'application Spark.
 - **dashboard-frontend**: un serveur nginx servant un dashboard permettant de
-  visualiser l'analyse effectuee par l'application Spark.
-- **dashboard-backend**: le backend du dashboard permettant de recuperer la donnee
-  stockee dans analytics-db.
+  visualiser l'analyse effectuée par l'application Spark.
+- **dashboard-backend**: le backend du dashboard permettant de récuperer la donnée
+  stockée dans **analytics-db**.
 
-## Ce qui n'a pas pu etre implementee
+## Ce qui n'a pas pu etre implémentée
 
 - **alert-system** ne charge pas les seuils pour les exercices depuis une base de
-  donnees. A la place, un seuil fixe et universel pour tous les exercices peut
-  etre specifie en variable d'environnement.
-- Les alertes n'ont pas pu etre communiquees par websocket. Elles sont pour
-  l'instant stockees (et en attente) dans la stream **kafka-out**.
+  données. A la place, un seuil fixe et universel pour tous les exercices peut
+  être spécifié en variable d'environnement.
+- Les alertes n'ont pas pu être communiquées par websocket. Elles sont pour
+  l'instant stockées (et en attente) dans la stream **kafka-out**.
 
-## Pour demarrer l'infrastructure
+## Pour démarrer l'infrastructure
 
-Veuillez executer la commande suivante:
+Veuillez exécuter la commande suivante:
 ```sh
 docker compose up --build --scale spark-worker=[n]
 ```
 
-avec [n] etant le nombre d'executors du cluster spark que vous souhaitez.
+avec [n] étant le nombre d'executors du cluster spark que vous souhaitez.
 Nous vous conseillons 3 executors pour une démo agréable.
 
-L'entierete de l'infrastructure prend 3 minutes a etre prete.
-Pour savoir quand l'infrastructure est prete, visitez http://localhost:80.
-Le dashboard ne s'affichera que lorsque l'infrastructure sera prete.
+L'entiereté de l'infrastructure prend 3 minutes à être prête.
+Pour savoir quand l'infrastructure est prête, visitez http://localhost:80.
+Le dashboard ne s'affichera que lorsque l'infrastructure sera prête.
 
-## Pour nettoyer votre systeme apres demonstration
+## Pour nettoyer votre système apres démonstration
 
-Veuillez executer la commande suivante:
+Veuillez exécuter la commande suivante:
 ```sh
 make clean
 ```
@@ -101,7 +101,7 @@ Le système de stockage de donnée à long terme doit être résiliant aux parti
 
 <div align="center">
     <a href="https://github.com/LilianSchall/DataEngineeringGp6/blob/main/images/architecture.png">
-        <img src="images/architecture.png" alt="Architecture" width="500"
+        <img src="images/architecture.png" alt="Architecture" width="700"
         height="250">
     </a>
 </div>
