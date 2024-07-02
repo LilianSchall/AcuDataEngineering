@@ -33,6 +33,14 @@ comportant les services suivants:
 - **dashboard-backend**: le backend du dashboard permettant de recuperer la donnee
   stockee dans analytics-db.
 
+## Ce qui n'a pas pu etre implementee
+
+- **alert-system** ne charge pas les seuils pour les exercices depuis une base de
+  donnees. A la place, un seuil fixe et universel pour tous les exercices peut
+  etre specifie en variable d'environnement.
+- Les alertes n'ont pas pu etre communiquees par websocket. Elles sont pour
+  l'instant stockees (et en attente) dans la stream **kafka-out**.
+
 ## Pour demarrer l'infrastructure
 
 Veuillez executer la commande suivante:
