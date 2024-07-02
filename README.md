@@ -7,6 +7,49 @@
     </a>
 </div>
 
+## Description de l'implementation
+
+L'implementation du projet est mise en place au travers d'un docker compose
+comportant les services suivants:
+- **student-signal**: un service de spam de l'infrastructure, generant des fausses
+  donnees de maniere intensive.
+- **kafka-in**: la stream kafka recevant en entree les rapports d'etudiants.
+- **kafka-out**: la stream kafka recevant en entree les alertes de score trop bas.
+- **alert-system**: un service kafka-stream qui fetch le contenu de kafka-in et le
+  renvoie dans kafka-out si le score d'un etudiant a un exercice associe est
+  trop bas.
+- **hdfs-namenode**: le namenode du cluster hdfs.
+- **hdfs-datanode**: le datanode du cluster hdfs.
+- **kafka-hdfs-sink-connector**: un service de depot de la donnee dans le cluster
+  hdfs.
+- **spark-master**: le driver du cluster Spark.
+- **spark-worker**: le(s) executor(s) du cluster Spark.
+- **analyzer-job**: un service qui trigger toutes les minutes une application spark
+  de batch processing de la donnee stockee dans le cluster hdfs.
+- **analytics-db**: la database postgreSQL dans laquelle est deversee le resultat de
+  l'application Spark.
+- **dashboard-frontend**: un serveur nginx servant un dashboard permettant de
+  visualiser l'analyse effectuee par l'application Spark.
+- **dashboard-backend**: le backend du dashboard permettant de recuperer la donnee
+  stockee dans analytics-db.
+
+## Pour demarrer l'infrastructure
+
+Veuillez executer la commande suivante:
+```sh
+docker compose up --build --scale spark-worker=[n]
+```
+
+avec [n] etant le nombre d'executors du cluster spark que vous souhaitez.
+Nous vous conseillons 3 executors pour une démo agréable.
+
+## Pour nettoyer votre systeme apres demonstration
+
+Veuillez executer la commande suivante:
+```sh
+make clean
+```
+
 ## Définition du contexte métier
 
 La piscine de C est une épreuve phare de l'EPITA. Suite à son rayonnement et son succès, cette épreuve devient un examen national se déroulant sur l'ensemble du territoire français.
