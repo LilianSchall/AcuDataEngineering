@@ -109,10 +109,13 @@ const loading = ref(false);
 
 const appStore = useAppStore();
 
+loading.value = true;
 // Load the regions and exercises
 await appStore.getRegions();
 await appStore.updateRegionRanks();
 await appStore.getExercises();
+
+loading.value = false;
 
 // Get the list of exercises
 const exercises_info = appStore.exercises;
@@ -186,6 +189,7 @@ const selectExercise = async (id) => {
 
   // Now we need to update the ranks of the regions
   console.log('Updating ranks for id : ', id)
+  loading.value = true;
   await appStore.updateRegionRanks(id, sort_by_score.value);
   const new_region_info = appStore.regions;
 
@@ -200,6 +204,7 @@ const selectExercise = async (id) => {
       name: region.name,
     });
   });
+  loading.value = false;
 };
 
 const viewExercise = (exercise) => {
@@ -223,6 +228,7 @@ const viewExercise = (exercise) => {
 };
 
 const clickedRegion = async (regionId) => {
+  loading.value = true;
   selectedRegion.value = getRegionName(regionId);
 
   console.log('Clicked region : ', regionId)
@@ -241,7 +247,7 @@ const clickedRegion = async (regionId) => {
       alerts: nb_alerts.find((alert) => alert.id_exercise === exercise.id_exercise).nb_alert
     }
   })
-
+  loading.value = false;
   dialogRegion.value = true;
 };
 
