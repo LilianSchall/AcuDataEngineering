@@ -1,0 +1,594 @@
+{
+  "exercises": [
+    {
+      "name": "80cols",
+      "difficulty": "hard",
+      "id": 1
+    },
+    {
+      "name": "80cols_grep",
+      "difficulty": "hard",
+      "id": 2
+    },
+    {
+      "name": "add_int_ptr",
+      "difficulty": "easy",
+      "id": 3
+    },
+    {
+      "name": "alphabet",
+      "difficulty": "easy",
+      "id": 4
+    },
+    {
+      "name": "alphanum",
+      "difficulty": "hard",
+      "id": 5
+    },
+    {
+      "name": "array_max_min",
+      "difficulty": "medium",
+      "id": 6
+    },
+    {
+      "name": "ascii_carousel",
+      "difficulty": "medium",
+      "id": 7
+    },
+    {
+      "name": "ascii_house",
+      "difficulty": "easy",
+      "id": 8
+    },
+    {
+      "name": "assignment_operator",
+      "difficulty": "medium",
+      "id": 9
+    },
+    {
+      "name": "binary_cipher",
+      "difficulty": "medium",
+      "id": 10
+    },
+    {
+      "name": "binary_search",
+      "difficulty": "medium",
+      "id": 11
+    },
+    {
+      "name": "binary_search_ptr",
+      "difficulty": "medium",
+      "id": 12
+    },
+    {
+      "name": "binary_tree_dynamic",
+      "difficulty": "hard",
+      "id": 13
+    },
+    {
+      "name": "bit_rotation",
+      "difficulty": "medium",
+      "id": 14
+    },
+    {
+      "name": "bubble_sort",
+      "difficulty": "easy",
+      "id": 15
+    },
+    {
+      "name": "check_alphabet",
+      "difficulty": "medium",
+      "id": 16
+    },
+    {
+      "name": "clang-format",
+      "difficulty": "easy",
+      "id": 17
+    },
+    {
+      "name": "connect4",
+      "difficulty": "hard",
+      "id": 18
+    },
+    {
+      "name": "create_array",
+      "difficulty": "easy",
+      "id": 19
+    },
+    {
+      "name": "create_files",
+      "difficulty": "easy",
+      "id": 20
+    },
+    {
+      "name": "cut_csv",
+      "difficulty": "hard",
+      "id": 21
+    },
+    {
+      "name": "date_format",
+      "difficulty": "hard",
+      "id": 22
+    },
+    {
+      "name": "digit",
+      "difficulty": "easy",
+      "id": 23
+    },
+    {
+      "name": "display_square",
+      "difficulty": "easy",
+      "id": 24
+    },
+    {
+      "name": "dlist",
+      "difficulty": "hard",
+      "id": 25
+    },
+    {
+      "name": "element_count",
+      "difficulty": "medium",
+      "id": 26
+    },
+    {
+      "name": "fact",
+      "difficulty": "easy",
+      "id": 27
+    },
+    {
+      "name": "fact_iter",
+      "difficulty": "medium",
+      "id": 28
+    },
+    {
+      "name": "facto",
+      "difficulty": "medium",
+      "id": 29
+    },
+    {
+      "name": "fibo",
+      "difficulty": "easy",
+      "id": 30
+    },
+    {
+      "name": "fibo_iter",
+      "difficulty": "easy",
+      "id": 31
+    },
+    {
+      "name": "fifo",
+      "difficulty": "hard",
+      "id": 32
+    },
+    {
+      "name": "file_basics_insert_line",
+      "difficulty": "hard",
+      "id": 33
+    },
+    {
+      "name": "file_basics_merge_files",
+      "difficulty": "hard",
+      "id": 34
+    },
+    {
+      "name": "find_ascii",
+      "difficulty": "hard",
+      "id": 35
+    },
+    {
+      "name": "free_array",
+      "difficulty": "easy",
+      "id": 36
+    },
+    {
+      "name": "freq_analysis",
+      "difficulty": "medium",
+      "id": 37
+    },
+    {
+      "name": "functional_programming",
+      "difficulty": "easy",
+      "id": 38
+    },
+    {
+      "name": "generate_files",
+      "difficulty": "easy",
+      "id": 39
+    },
+    {
+      "name": "generic_void_list",
+      "difficulty": "hard",
+      "id": 40
+    },
+    {
+      "name": "get_int_value",
+      "difficulty": "easy",
+      "id": 41
+    },
+    {
+      "name": "glob_easy",
+      "difficulty": "medium",
+      "id": 42
+    },
+    {
+      "name": "glob_remove_shell",
+      "difficulty": "medium",
+      "id": 43
+    },
+    {
+      "name": "grade",
+      "difficulty": "easy",
+      "id": 44
+    },
+    {
+      "name": "greatest_divisor",
+      "difficulty": "easy",
+      "id": 45
+    },
+    {
+      "name": "hacker_news",
+      "difficulty": "medium",
+      "id": 46
+    },
+    {
+      "name": "handling_complex",
+      "difficulty": "hard",
+      "id": 47
+    },
+    {
+      "name": "hanoi",
+      "difficulty": "easy",
+      "id": 48
+    },
+    {
+      "name": "hash_map",
+      "difficulty": "hard",
+      "id": 49
+    },
+    {
+      "name": "hello_friends",
+      "difficulty": "easy",
+      "id": 50
+    },
+    {
+      "name": "hello_world",
+      "difficulty": "easy",
+      "id": 51
+    },
+    {
+      "name": "hello_world_shebang",
+      "difficulty": "easy",
+      "id": 52
+    },
+    {
+      "name": "highest_common_factor",
+      "difficulty": "medium",
+      "id": 53
+    },
+    {
+      "name": "hill_array",
+      "difficulty": "medium",
+      "id": 54
+    },
+    {
+      "name": "insertion_sort",
+      "difficulty": "medium",
+      "id": 55
+    },
+    {
+      "name": "inside",
+      "difficulty": "medium",
+      "id": 56
+    },
+    {
+      "name": "inside_noif",
+      "difficulty": "medium",
+      "id": 57
+    },
+    {
+      "name": "int_mats_mult",
+      "difficulty": "hard",
+      "id": 58
+    },
+    {
+      "name": "int_palindrome",
+      "difficulty": "easy",
+      "id": 59
+    },
+    {
+      "name": "int_sqrt",
+      "difficulty": "easy",
+      "id": 60
+    },
+    {
+      "name": "int_vector_insert_sort",
+      "difficulty": "hard",
+      "id": 61
+    },
+    {
+      "name": "int_vector_max",
+      "difficulty": "hard",
+      "id": 62
+    },
+    {
+      "name": "levenshtein",
+      "difficulty": "hard",
+      "id": 63
+    },
+    {
+      "name": "lookup_table",
+      "difficulty": "hard",
+      "id": 64
+    },
+    {
+      "name": "my_abs",
+      "difficulty": "easy",
+      "id": 65
+    },
+    {
+      "name": "my_atoi",
+      "difficulty": "medium",
+      "id": 66
+    },
+    {
+      "name": "my_bc",
+      "difficulty": "medium",
+      "id": 67
+    },
+    {
+      "name": "my_c_tail",
+      "difficulty": "hard",
+      "id": 68
+    },
+    {
+      "name": "my_calloc",
+      "difficulty": "medium",
+      "id": 69
+    },
+    {
+      "name": "my_file",
+      "difficulty": "medium",
+      "id": 70
+    },
+    {
+      "name": "my_first_variable",
+      "difficulty": "medium",
+      "id": 71
+    },
+    {
+      "name": "my_free",
+      "difficulty": "easy",
+      "id": 72
+    },
+    {
+      "name": "my_itoa",
+      "difficulty": "medium",
+      "id": 73
+    },
+    {
+      "name": "my_itoa_base",
+      "difficulty": "medium",
+      "id": 74
+    },
+    {
+      "name": "my_malloc",
+      "difficulty": "easy",
+      "id": 75
+    },
+    {
+      "name": "my_memmove",
+      "difficulty": "hard",
+      "id": 76
+    },
+    {
+      "name": "my_pow",
+      "difficulty": "easy",
+      "id": 77
+    },
+    {
+      "name": "my_recycler",
+      "difficulty": "hard",
+      "id": 78
+    },
+    {
+      "name": "my_round",
+      "difficulty": "easy",
+      "id": 79
+    },
+    {
+      "name": "my_strcasecmp",
+      "difficulty": "hard",
+      "id": 80
+    },
+    {
+      "name": "my_strcmp",
+      "difficulty": "medium",
+      "id": 81
+    },
+    {
+      "name": "my_strcpy",
+      "difficulty": "medium",
+      "id": 82
+    },
+    {
+      "name": "my_strdup",
+      "difficulty": "easy",
+      "id": 83
+    },
+    {
+      "name": "my_strlen",
+      "difficulty": "easy",
+      "id": 84
+    },
+    {
+      "name": "my_strlowcase",
+      "difficulty": "medium",
+      "id": 85
+    },
+    {
+      "name": "my_strndup",
+      "difficulty": "easy",
+      "id": 86
+    },
+    {
+      "name": "my_strspn",
+      "difficulty": "hard",
+      "id": 87
+    },
+    {
+      "name": "my_strstr",
+      "difficulty": "hard",
+      "id": 88
+    },
+    {
+      "name": "my_strtok_r",
+      "difficulty": "hard",
+      "id": 89
+    },
+    {
+      "name": "my_strupcase",
+      "difficulty": "easy",
+      "id": 90
+    },
+    {
+      "name": "null_terminated_arrays",
+      "difficulty": "hard",
+      "id": 91
+    },
+    {
+      "name": "number_digits_rec",
+      "difficulty": "easy",
+      "id": 92
+    },
+    {
+      "name": "palindrome",
+      "difficulty": "medium",
+      "id": 93
+    },
+    {
+      "name": "pi_generator",
+      "difficulty": "easy",
+      "id": 94
+    },
+    {
+      "name": "pine",
+      "difficulty": "easy",
+      "id": 95
+    },
+    {
+      "name": "pointer_swap",
+      "difficulty": "easy",
+      "id": 96
+    },
+    {
+      "name": "print_arguments",
+      "difficulty": "easy",
+      "id": 97
+    },
+    {
+      "name": "prototypes",
+      "difficulty": "medium",
+      "id": 98
+    },
+    {
+      "name": "quick_sort",
+      "difficulty": "medium",
+      "id": 99
+    },
+    {
+      "name": "read_and_inc",
+      "difficulty": "easy",
+      "id": 100
+    },
+    {
+      "name": "repeat",
+      "difficulty": "easy",
+      "id": 101
+    },
+    {
+      "name": "right_tarball",
+      "difficulty": "easy",
+      "id": 102
+    },
+    {
+      "name": "rotx",
+      "difficulty": "medium",
+      "id": 103
+    },
+    {
+      "name": "run_length_encoding",
+      "difficulty": "hard",
+      "id": 104
+    },
+    {
+      "name": "sed_trailing_whitespaces",
+      "difficulty": "easy",
+      "id": 105
+    },
+    {
+      "name": "selection_sort",
+      "difficulty": "easy",
+      "id": 106
+    },
+    {
+      "name": "seq",
+      "difficulty": "medium",
+      "id": 107
+    },
+    {
+      "name": "sieve_eratosthenes_advanced",
+      "difficulty": "hard",
+      "id": 108
+    },
+    {
+      "name": "spoilers",
+      "difficulty": "hard",
+      "id": 109
+    },
+    {
+      "name": "stack",
+      "difficulty": "hard",
+      "id": 110
+    },
+    {
+      "name": "str_revert",
+      "difficulty": "medium",
+      "id": 111
+    },
+    {
+      "name": "string_replace",
+      "difficulty": "hard",
+      "id": 112
+    },
+    {
+      "name": "test_a_bit",
+      "difficulty": "medium",
+      "id": 113
+    },
+    {
+      "name": "tinylibstream",
+      "difficulty": "hard",
+      "id": 114
+    },
+    {
+      "name": "user_ids",
+      "difficulty": "hard",
+      "id": 115
+    },
+    {
+      "name": "using_special_variables",
+      "difficulty": "easy",
+      "id": 116
+    },
+    {
+      "name": "variant",
+      "difficulty": "hard",
+      "id": 117
+    },
+    {
+      "name": "vector",
+      "difficulty": "hard",
+      "id": 118
+    }
+  ]
+}

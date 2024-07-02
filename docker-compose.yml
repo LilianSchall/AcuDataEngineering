@@ -1,0 +1,234 @@
+name: "acu-infra"
+services:
+  # stream kafka used for ingesting data from producers
+  kafka-in:
+    container_name: "kafka-in"
+    hostname: "kafka-in"
+    image: "apache/kafka:3.7.0"
+    ports:
+      - 9092:9092
+    healthcheck:
+      test: nc -z localhost 9092 || exit -1
+      start_period: 15s
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT_HOST://localhost:9092,PLAINTEXT://kafka-in:19092'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka-in:29093'
+      KAFKA_LISTENERS: 'CONTROLLER://:29093,PLAINTEXT_HOST://:9092,PLAINTEXT://:19092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+  kafka-out:
+    container_name: "kafka-out"
+    hostname: "kafka-out"
+    image: "apache/kafka:3.7.0"
+    ports:
+      - 9093:9092
+    healthcheck:
+      test: nc -z localhost 9092 || exit -1
+      start_period: 15s
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT_HOST://localhost:9092,PLAINTEXT://kafka-out:19092'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka-out:29093'
+      KAFKA_LISTENERS: 'CONTROLLER://:29093,PLAINTEXT_HOST://:9092,PLAINTEXT://:19092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      CLUSTER_ID: '6L6g3nShT-eMCtK--X86sw'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+
+  alert-system:
+    image: acu-alert-system:latest
+    restart: unless-stopped
+    build:
+      context: ./AlertSystem
+    depends_on:
+      kafka-in:
+        condition: service_healthy
+      kafka-out:
+        condition: service_healthy
+    environment:
+      KAFKA_IN_HOST: "PLAINTEXT://kafka-in"
+      KAFKA_IN_PORT: "19092"
+      KAFKA_OUT_HOST: "PLAINTEXT://kafka-out"
+      KAFKA_OUT_PORT: "19092"
+      SCORE_FLOOR: "20"
+
+  # distributed storage
+  hdfs-namenode:
+    container_name: "hdfs-namenode"
+    image: "apache/hadoop:3"
+    hostname: "hdfs-namenode"
+    command: ["hdfs", "namenode"]
+    ports:
+      - "8020:8020"
+    env_file:
+      - ./hdfs-config/config
+    environment:
+      ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
+  hdfs-datanode:
+    depends_on:
+      hdfs-namenode:
+        condition: service_started
+    container_name: "hdfs-datanode"
+    image: "apache/hadoop:3"
+    hostname: "hdfs-datanode"
+    command: ["hdfs", "datanode"]
+    env_file:
+      - ./hdfs-config/config
+
+  # the kafka connector that sinks the data of 
+  # kafka-in into our distributed storage
+  kafka-hdfs-sink-connector:
+    depends_on:
+      kafka-in:
+        condition: service_healthy
+    container_name: "kafka-hdfs-sink-connector"
+    hostname: "kafka-hdfs-sink-connector"
+    healthcheck:
+      test: curl -s localhost:8083 || exit -1
+      start_period: 15s
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    image: "kafka-connect-hdfs:latest"
+    build:
+      context: "./kafka-connect-hdfs"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: "PLAINTEXT://kafka-in:19092"
+      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-hdfs-sink-connector"
+      CONNECT_REST_PORT: "8083"
+      CONNECT_GROUP_ID: "hdfs-sink-cluster"
+      CONNECT_CONFIG_STORAGE_TOPIC: "hdfs-connect-configs"
+      CONNECT_OFFSET_STORAGE_TOPIC: "hdfs-connect-offsets"
+      CONNECT_STATUS_STORAGE_TOPIC: "hdfs-connect-status"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
+      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_TOPIC_CREATION_ENABLE: "true"
+
+  analyzer-job:
+    container_name: "analyzer-job"
+    hostname: "analyzer-job"
+    image: acu-analyzer-job:latest
+    restart: unless-stopped
+    build:
+      context: ./Analyzer
+    depends_on:
+      kafka-hdfs-sink-connector:
+        condition: service_healthy
+
+  student-signal:
+    container_name: "student-signal"
+    hostname: "student-signal"
+    image: acu-student-signal:latest
+    restart: unless-stopped
+    build:
+      context: ./StudentsSignal
+    depends_on:
+      kafka-hdfs-sink-connector:
+        condition: service_healthy
+    environment:
+      KAFKA_IN_HOST: "PLAINTEXT://kafka-in"
+      KAFKA_IN_PORT: "19092"
+
+  # Cluster spark
+  spark-master:
+    container_name: "spark-master"
+    image: "bitnami/spark:3.5"
+    hostname: "spark-master"
+    environment:
+      SPARK_MODE: "master"
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+  spark-worker:
+    depends_on:
+      spark-master:
+        condition: service_started
+    image: "bitnami/spark:3.5"
+    environment:
+      SPARK_MODE: "worker"
+      SPARK_MASTER_URL: "spark://spark-master:7077"
+      SPARK_WORKER_MEMORY: "1G"
+      SPARK_WORKER_CORES: "1"
+
+  # Analytics database
+  analytics-db:
+    container_name: "analytics-db"
+    hostname: "analytics-db"
+    image: acu-database:latest
+    restart: unless-stopped
+    build:
+      context: ./database
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: psql --dbname "acu_infra" --username "admin" -tc 'SELECT true FROM analytics LIMIT 1' | grep -q 't' || exit -1
+      start_period: 15s
+      interval: 5s
+      timeout: 10s
+      retries: 100
+    environment:
+      POSTGRES_DB: acu_infra
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      DASHBOARD_SERVICE_PASSWORD: dashboard123
+      ANALYTICS_SERVICE_PASSWORD: analytics123
+
+  # dashboard instances
+  dashboard-backend:
+    container_name: "dashboard-backend"
+    hostname: "dashboard-backend"
+    image: acu-dashboard-backend:latest
+    depends_on:
+      analytics-db:
+        condition: service_healthy
+    restart: unless-stopped
+    build:
+      context: ./DashboardBackend
+    ports:
+      - "81:80"
+    environment:
+      DB_HOST: "analytics-db"
+      DB_PORT: "5432"
+      DB_NAME: "acu_infra"
+      DB_USER: "dashboard_service"
+      DB_PASSWORD: "dashboard123"
+
+  dashboard-frontend:
+    container_name: "dashboard-frontend"
+    hostname: "dashboard-frontend"
+    image: acu-dashboard-frontend:latest
+    depends_on:
+      dashboard-backend:
+        condition: service_started
+    restart: unless-stopped
+    build:
+      context: ./DashboardFrontend/acu-dashboard
+    ports:
+      - "80:80"

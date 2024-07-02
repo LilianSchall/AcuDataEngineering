@@ -1,0 +1,16 @@
+{
+    "name": "hdfs-sink-connector",
+    "config": {
+        "confluent.topic.bootstrap.servers": "PLAINTEXT://kafka-in:19092",
+        "connector.class": "io.confluent.connect.hdfs3.Hdfs3SinkConnector",
+        "tasks.max": 1,
+        "topics": "student_report",
+        "hdfs.url": "hdfs://hdfs-namenode:8020",
+        "flush.size": 1000,
+        "format.class": "io.confluent.connect.hdfs3.json.JsonFormat",
+        "partitioner.class": "io.confluent.connect.storage.partitioner.DefaultPartitioner",
+        "hive.integration": false,
+        "schema.compatibility": "NONE",
+        "confluent.support.metrics.enable": true
+    }
+}
